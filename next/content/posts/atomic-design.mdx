@@ -1,0 +1,149 @@
+---
+title: Atomic Design Folder Structure for React
+description: How to create from scratch React app using Atomic Design.
+date: "2025-01-20"
+---
+
+This article outlines the folder structure for a React project using Atomic Design principles. Atomic Design helps create a scalable and modular architecture by breaking down components into five hierarchical categories: **Atoms**, **Molecules**, **Organisms**, **Templates**, and **Pages**. Here's how you can organize your React project effectively.
+
+---
+
+<Image src="/blog-post-5.png" width="718" height="404" alt="Image" />
+
+## Why Atomic Design?
+
+
+Atomic Design offers a clear methodology for building reusable components, improving maintainability and scalability. Each layer serves a specific purpose:
+
+- **Atoms**: Basic building blocks like buttons, inputs, or labels.
+- **Molecules**: Small combinations of Atoms, like a form field with a label and input.
+- **Organisms**: Larger, reusable sections of UI, such as navigation bars or carousels.
+- **Templates**: Page-level layouts defining structure without specific content.
+- **Pages**: Complete, content-specific views.
+
+---
+
+## Folder Structure
+
+Organize your project using the following structure:
+
+```plaintext
+src/
+├── assets/                     # Static assets like images, fonts, and icons
+│   ├── images/
+│   ├── fonts/
+│   ├── icons/
+├── components/                 # Atomic Design layers
+│   ├── atoms/                  # Smallest, reusable UI components
+│   │   ├── Button/
+│   │   │   ├── Button.jsx
+│   │   │   ├── Button.test.jsx
+│   │   │   └── Button.css
+│   │   ├── Input/
+│   │   └── Label/
+│   ├── molecules/              # Composed from atoms
+│   │   ├── FormField/
+│   │   ├── Card/
+│   │   └── Navbar/
+│   ├── organisms/              # Larger UI sections
+│   │   ├── Header/
+│   │   ├── Footer/
+│   │   └── Sidebar/
+│   ├── templates/              # Page layouts
+│   │   ├── DashboardTemplate/
+│   │   └── LoginTemplate/
+│   └── pages/                  # Complete views
+│       ├── HomePage/
+│       ├── LoginPage/
+│       └── ProfilePage/
+├── hooks/                      # Custom React hooks
+├── utils/                      # Utility functions and helpers
+├── services/                   # API calls and service logic
+└── App.jsx                     # Main app entry point
+```
+
+---
+
+## Example Component: Button (Atom)
+
+Here's an example of how an Atom like a `Button` can be implemented:
+
+### Folder Structure
+
+```plaintext
+atoms/
+├── Button/
+    ├── Button.jsx
+    ├── Button.css
+    └── Button.test.jsx
+```
+
+### Code Example
+
+**Button.jsx**:
+
+```javascript
+import React from 'react';
+import './Button.css';
+
+const Button = ({ label, onClick, type = 'button' }) => {
+  return (
+    <button type={type} className="button" onClick={onClick}>
+      {label}
+    </button>
+  );
+};
+
+export default Button;
+```
+
+**Button.css**:
+
+```css
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+```
+
+**Button.test.jsx**:
+
+```javascript
+import { render, screen, fireEvent } from '@testing-library/react';
+import Button from './Button';
+
+test('renders Button with label', () => {
+  render(<Button label="Click Me" onClick={() => {}} />);
+  expect(screen.getByText('Click Me')).toBeInTheDocument();
+});
+
+test('calls onClick handler when clicked', () => {
+  const onClick = jest.fn();
+  render(<Button label="Click Me" onClick={onClick} />);
+  fireEvent.click(screen.getByText('Click Me'));
+  expect(onClick).toHaveBeenCalledTimes(1);
+});
+```
+
+---
+
+## Benefits of Atomic Design in React
+
+1. **Reusability**: Components are modular and reusable across the project.
+2. **Scalability**: The structure accommodates growth as the application evolves.
+3. **Consistency**: A well-organized structure ensures consistent UI and development practices.
+4. **Testability**: Smaller components are easier to test and debug.
+
+---
+
+### Conclusion
+
+Using Atomic Design principles for your React projects simplifies development and ensures maintainable, scalable applications. Start with small components and build up to larger UI structures, keeping your project organized and efficient. What are your thoughts on this approach? Share your experiences!

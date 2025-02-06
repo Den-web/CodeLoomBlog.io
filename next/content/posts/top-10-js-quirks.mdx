@@ -1,0 +1,164 @@
+---
+title: 10 JavaScript Quirks Every Developer Should Know
+description: This article explores 10 quirks in JavaScript that can surprise developers and how to handle them effectively.
+date: "2025-02-05"
+---
+
+<Image src="/blog-post-6.png" width="718" height="404" alt="Image" />
+
+# 
+
+This article explores 10 quirks in JavaScript that can surprise developers and how to handle them effectively.
+
+---
+
+## 1. `0.1 + 0.2 !== 0.3`
+
+JavaScript uses the IEEE 754 standard for floating-point arithmetic, which can cause precision issues.
+
+```javascript
+console.log(0.1 + 0.2); // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3); // false
+
+// Fix with rounding
+console.log(Number((0.1 + 0.2).toFixed(10)) === 0.3); // true
+```
+
+---
+
+## 2. `NaN` is not equal to itself
+
+`NaN` (Not-a-Number) has a unique behavior: it is not equal to itself.
+
+```javascript
+console.log(NaN === NaN); // false
+console.log(Object.is(NaN, NaN)); // true
+
+// Check for NaN
+console.log(Number.isNaN(NaN)); // true
+```
+
+---
+
+## 3. `typeof null` is "object"
+
+A well-known bug in JavaScript that persists for backward compatibility.
+
+```javascript
+console.log(typeof null); // "object"
+
+// Explicitly check for null
+console.log(null === null); // true
+```
+
+---
+
+## 4. Empty arrays are equal to empty strings
+
+Loose comparisons in JavaScript can lead to surprising results.
+
+```javascript
+console.log([] == ''); // true
+console.log([1, 2] == '1,2'); // true
+
+// Use strict comparison
+console.log([] === ''); // false
+```
+
+---
+
+## 5. Bitwise operations convert to 32-bit integers
+
+JavaScript converts numbers to 32-bit signed integers during bitwise operations.
+
+```javascript
+console.log(2147483647 | 0); // 2147483647
+console.log(2147483648 | 0); // -2147483648 (overflow)
+```
+
+---
+
+## 6. `[] + []` returns an empty string
+
+Adding arrays together converts them into strings.
+
+```javascript
+console.log([] + []); // ""
+console.log([] + {}); // "[object Object]"
+console.log({} + []); // 0 (in some environments)
+```
+
+---
+
+## 7. `true` converts to `1`, `false` to `0`
+
+Boolean values are coerced into numbers during arithmetic operations.
+
+```javascript
+console.log(true + true); // 2
+console.log(true - false); // 1
+```
+
+---
+
+## 8. `parseInt` stops at invalid characters
+
+`parseInt` processes a string until it encounters an invalid character.
+
+```javascript
+console.log(parseInt('10.5')); // 10
+console.log(parseFloat('10.5')); // 10.5
+```
+
+---
+
+## 9. Empty strings equal `0` in loose comparison
+
+Loose comparison can lead to unexpected results when comparing empty strings.
+
+```javascript
+console.log('' == 0); // true
+console.log('' === 0); // false
+```
+
+---
+
+## 10. Functions accept extra arguments
+
+JavaScript functions do not enforce the number of arguments passed.
+
+```javascript
+function add(a, b) {
+  return a + b;
+}
+console.log(add(1, 2, 3)); // 3
+
+// Use default parameters
+function add(a, b = 0) {
+  return a + b;
+}
+console.log(add(1)); // 1
+```
+
+---
+
+### Conclusion
+
+Understanding JavaScript quirks can help you write more predictable and maintainable code. Which one surprised you the most? Share your thoughts in the comments!
+
+---
+
+## Table of Contents
+
+- [1. `0.1 + 0.2 !== 0.3`](#1-01--02--03)
+- [2. `NaN` is not equal to itself](#2-nan-is-not-equal-to-itself)
+- [3. `typeof null` is "object"](#3-typeof-null-is-object)
+- [4. Empty arrays are equal to empty strings](#4-empty-arrays-are-equal-to-empty-strings)
+- [5. Bitwise operations convert to 32-bit integers](#5-bitwise-operations-convert-to-32-bit-integers)
+- [6. `[] + []` returns an empty string](#6--returns-an-empty-string)
+- [7. `true` converts to `1`, `false` to `0`](#7-true-converts-to-1-false-to-0)
+- [8. `parseInt` stops at invalid characters](#8-parseint-stops-at-invalid-characters)
+- [9. Empty strings equal `0` in loose comparison](#9-empty-strings-equal-0-in-loose-comparison)
+- [10. Functions accept extra arguments](#10-functions-accept-extra-arguments)
+
+---
