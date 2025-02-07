@@ -25,11 +25,32 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="max-w-2xl mx-auto py-10 px-4">
             <header>
+              <div className="absolute top-5 right-5">
+                  <ModeToggle />
+              </div>
+
               <div className="flex items-center justify-between">
-                <ModeToggle />
+              <span className="relative top-[4px] italic justify-end p-4">
+                  <Link href="https://github.com/Den-web" target="_blank">
+                    <img
+                      alt="Denis Kirev"
+                      src="https://github.com/den-web.png"
+                      className="relative -top-1 mx-1 inline h-8 w-8 rounded-full"
+                    />
+                  </Link>
+                  by{" "}Denis Kirev
+                </span>
+                
                 <nav className="ml-auto text-sm font-medium space-x-6">
                   <Link href="/">Home</Link>
                   <Link href="/about">About</Link>
+                  <Link
+                    href="https://den-web.github.io/"
+                    target="_blank"
+                    className="text-blue-500 underline text-base justify-end relative"
+                  >
+                    Portfolio
+                  </Link>
                 </nav>
               </div>
             </header>
