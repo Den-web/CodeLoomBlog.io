@@ -1,7 +1,8 @@
 ---
-title: "DNS (Domain Name System) in Detail"
-description: "System that translates **domain names** into **IP addresses** needed to establish a connection between a client and a server"
-date: "2025-02-17"
+title: "How DNS Works"
+description: "A deep dive into the Domain Name System"
+date: "2024-02-17"
+tags: ["NETWORK", "CORE", "PERFORMANCE"]
 ---
 
 <Image src="/blog-post-dns.png" width="718" height="404" alt="Image" />
@@ -75,7 +76,7 @@ sudo killall -HUP mDNSResponder && sudo dscacheutil -flushcache
 systemd-resolve --statistics
 ```  
 
-### **How to Check a Domain’s TTL?**  
+### **How to Check a Domain's TTL?**  
 ```sh
 nslookup -type=a google.com
 ```

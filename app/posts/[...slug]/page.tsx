@@ -3,6 +3,8 @@ import { allPosts } from "contentlayer/generated"
 
 import { Metadata } from "next"
 import { Mdx } from "@/components/mdx-components"
+import { format } from "date-fns"
+import { CalendarIcon, ClockIcon, TagIcon } from "@heroicons/react/24/outline"
 
 interface PostProps {
   params: {
@@ -49,16 +51,67 @@ export default async function PostPage({ params }: PostProps) {
     notFound()
   }
 
+  const readingTime = Math.ceil(post.body.raw.split(/\s+/).length / 200); // Assuming 200 words per minute
+
   return (
-    <article className="py-6 prose dark:prose-invert">
-      <h1 className="mb-0 mt-2">{post.title}</h1>
-      {post.description && (
-        <p className="text-xl mt-0 text-slate-700 dark:text-slate-200">
-          {post.description}
-        </p>
-      )}
-      <hr className="my-4" />
-      <Mdx code={post.body.code} />
+    <article className="max-w-4xl mx-auto py-8">
+      {/* Header Section */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 mb-4">
+          {post.title}
+        </h1>
+        {post.description && (
+          <p className="text-xl text-zinc-600 dark:text-zinc-400 mb-6">
+            {post.description}
+          </p>
+        )}
+        
+        {/* Meta Information */}
+        <div className="flex flex-wrap gap-4 text-sm text-zinc-600 dark:text-zinc-400">
+          <div className="flex items-center gap-2">
+            <CalendarIcon className="w-4 h-4" />
+            <time dateTime={post.date}>
+              {format(new Date(post.date), 'MMMM d, yyyy')}
+            </time>
+          </div>
+          <div className="flex items-center gap-2">
+            <ClockIcon className="w-4 h-4" />
+            <span>{readingTime} min read</span>
+          </div>
+          {post.tags && (
+            <div className="flex items-center gap-2 flex-wrap">
+              <TagIcon className="w-4 h-4" />
+              <div className="flex gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="prose dark:prose-invert max-w-none">
+        <Mdx code={post.body.code} />
+      </div>
+
+      {/* Footer Section */}
+      <div className="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="flex justify-between items-center">
+          <div className="text-sm text-zinc-600 dark:text-zinc-400">
+            Last updated: {format(new Date(post.date), 'MMMM d, yyyy')}
+          </div>
+          <div className="flex gap-4">
+            {/* Add social share buttons or other actions here */}
+          </div>
+        </div>
+      </div>
     </article>
   )
 }

@@ -1,7 +1,8 @@
 ---
-title: "How V8 Works and Its Code Optimization"
-description: "V8 is a Just-In-Time (JIT) compiling engine."
-date: "2025-03-5"
+title: "Understanding V8 Engine"
+description: "Deep dive into how V8 Engine works"
+date: "2024-03-04"
+tags: ["JAVASCRIPT", "PERFORMANCE", "CORE"]
 ---
 
 
@@ -9,7 +10,7 @@ date: "2025-03-5"
 
 ---
 
-V8 is a **Just-In-Time (JIT) compiling engine** that **does not interpret JavaScript line by line** but rather **compiles it into machine code** for faster execution. Let’s explore the key stages of V8’s operation and its optimization mechanisms.
+V8 is a **Just-In-Time (JIT) compiling engine** that **does not interpret JavaScript line by line** but rather **compiles it into machine code** for faster execution. Let's explore the key stages of V8's operation and its optimization mechanisms.
 
 ---
 
@@ -48,7 +49,7 @@ Star r0
 - `LdaSmi 10` – load number `10` into a register.
 - `Star r0` – store the value in register `r0`.
 
-This bytecode is **faster than AST** but **still slow** because it’s not yet optimized.
+This bytecode is **faster than AST** but **still slow** because it's not yet optimized.
 
 ---
 
@@ -90,7 +91,7 @@ let user = {};
 user.name = "Denis"; // V8 creates hidden class C1
 user.age = 30;       // A new class C2 is created (due to structure change)
 ```
-To **avoid changing classes**, it’s better to **declare all properties upfront**:
+To **avoid changing classes**, it's better to **declare all properties upfront**:
 ```js
 let user = { name: "Denis", age: 30 };
 ```
@@ -98,7 +99,7 @@ let user = { name: "Denis", age: 30 };
 ---
 
 ### **3️⃣ Escape Analysis (Memory Allocation Optimization)**
-- If V8 detects that an object **does not escape a function’s scope**, it allocates it **on the stack** instead of the heap (**heap allocation**).
+- If V8 detects that an object **does not escape a function's scope**, it allocates it **on the stack** instead of the heap (**heap allocation**).
 - This reduces **Garbage Collector** workload.
 
 Example:

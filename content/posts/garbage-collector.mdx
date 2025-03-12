@@ -1,7 +1,8 @@
 ---
-title: "Orinoco: The High-Performance Garbage Collector in V8."
-description: "In Google’s V8 engine, which powers **Chrome and Node.js."
-date: "2025-03-5"
+title: "Garbage Collector"
+description: "Understanding how garbage collection works in JavaScript"
+date: "2024-03-06"
+tags: ["JAVASCRIPT", "PERFORMANCE", "CORE"]
 ---
 
 
@@ -10,9 +11,9 @@ date: "2025-03-5"
 ---
 
 🚀 **Introduction**  
-As JavaScript applications grow in complexity, optimizing memory management becomes crucial for performance. In Google’s **V8 engine**, which powers **Chrome and Node.js**, garbage collection (GC) plays a vital role in ensuring smooth execution. **Orinoco**, the modern GC used in V8, has revolutionized how JavaScript memory is managed by improving **parallelism, incremental collection, and pause times**.  
+As JavaScript applications grow in complexity, optimizing memory management becomes crucial for performance. In Google's **V8 engine**, which powers **Chrome and Node.js**, garbage collection (GC) plays a vital role in ensuring smooth execution. **Orinoco**, the modern GC used in V8, has revolutionized how JavaScript memory is managed by improving **parallelism, incremental collection, and pause times**.  
 
-In this article, we’ll dive into the **detailed workings of Orinoco**, explaining its **phases, optimizations, and impact on performance**.
+In this article, we'll dive into the **detailed workings of Orinoco**, explaining its **phases, optimizations, and impact on performance**.
 
 ---
 
@@ -35,7 +36,7 @@ The **young generation** is collected using a **semi-space copying GC**:
 - When garbage collection occurs, live objects are copied to the **"to" space**.
 - Dead objects are discarded, making memory reclaim fast and efficient.
 
-The Scavenger runs **concurrently** with JavaScript execution, meaning it doesn’t introduce long pauses.
+The Scavenger runs **concurrently** with JavaScript execution, meaning it doesn't introduce long pauses.
 
 ---
 
@@ -78,7 +79,7 @@ With Orinoco, **V8 can execute JavaScript with near-zero perceptible GC pauses**
 - **Node.js servers** (faster request handling)
 - **Gaming & real-time apps** (no stutters due to GC)
 
-Google’s benchmarks show **over 50% reduction in GC-related latency**, making Orinoco a game-changer for modern JavaScript engines.
+Google's benchmarks show **over 50% reduction in GC-related latency**, making Orinoco a game-changer for modern JavaScript engines.
 
 ---
 

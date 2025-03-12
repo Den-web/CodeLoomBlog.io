@@ -1,12 +1,13 @@
 ---
-title: "Pros & Cons of Making Database Requests from Next.js API Routes"
-description: "Next.js API routes allow us to directly communicate with a database."
-date: "2025-01-22"
+title: "Next.js API Routes"
+description: "Understanding Next.js API Routes and how to use them effectively"
+date: "2024-02-27"
+tags: ["NEXT-JS", "ARCHITECTURE", "PERFORMANCE"]
 ---
 
 <Image src="/blog-post-next-api.png" width="718" height="404" alt="Image" />
 
-Next.js API routes allow us to directly communicate with a database** without needing an external backend. But is this approach always the best choice? Let’s break down the **pros and cons.  
+Next.js API routes allow us to directly communicate with a database** without needing an external backend. But is this approach always the best choice? Let's break down the **pros and cons.  
 
 ---
 
@@ -38,12 +39,12 @@ Next.js API routes allow us to directly communicate with a database** without ne
 ### ❌ **Cons: When Next.js API Routes Might Not Be Ideal**  
 
 1️⃣ **⚠️ Cold Starts & Latency in Serverless Functions**  
-   - API routes are **stateless**, meaning they don’t maintain a persistent DB connection.  
+   - API routes are **stateless**, meaning they don't maintain a persistent DB connection.  
    - **Cold starts** in serverless environments can slow down the first request.  
-   - **Solution:** Use **connection pooling** (e.g., Prisma’s `@prisma/client`, PostgreSQL’s `pg-pool`).  
+   - **Solution:** Use **connection pooling** (e.g., Prisma's `@prisma/client`, PostgreSQL's `pg-pool`).  
 
 2️⃣ **💰 Serverless DB Limitations**  
-   - Serverless functions **aren’t designed** for long-running database transactions.  
+   - Serverless functions **aren't designed** for long-running database transactions.  
    - High DB traffic can lead to **rate limits** (e.g., Firebase free-tier restrictions).  
    - **Solution:** Consider a dedicated backend for complex DB-heavy operations.  
 
@@ -52,7 +53,7 @@ Next.js API routes allow us to directly communicate with a database** without ne
    - **Solution:** Use **Supabase, Firebase, or WebSockets** for real-time apps (e.g., chat apps, live dashboards).  
 
 4️⃣ **🛠️ Limited Background Jobs & Scheduled Tasks**  
-   - Next.js doesn’t support **background jobs** (e.g., cron jobs, scheduled tasks).  
+   - Next.js doesn't support **background jobs** (e.g., cron jobs, scheduled tasks).  
    - **Solution:** Use **a separate backend** like Node.js with BullMQ, or external services like AWS Lambda + SQS.  
 
 5️⃣ **📌 Vendor Lock-in with Vercel**  
@@ -65,13 +66,13 @@ Next.js API routes allow us to directly communicate with a database** without ne
 
 ✅ **YES, if:**  
 ✔ You want a **quick, full-stack solution** with minimal setup.  
-✔ Your app **doesn’t require heavy, persistent DB connections**.  
-✔ You’re using a serverless-friendly database like **PlanetScale, Supabase, or Firebase**.  
+✔ Your app **doesn't require heavy, persistent DB connections**.  
+✔ You're using a serverless-friendly database like **PlanetScale, Supabase, or Firebase**.  
 
 🚨 **NO, if:**  
 ❌ You need **real-time updates** (consider WebSockets).  
-❌ You’re running **heavy transactions** (consider a dedicated backend).  
-❌ You need **background jobs & scheduled tasks** (Next.js doesn’t support them).  
+❌ You're running **heavy transactions** (consider a dedicated backend).  
+❌ You need **background jobs & scheduled tasks** (Next.js doesn't support them).  
 
 ---
 
@@ -79,6 +80,6 @@ Next.js API routes allow us to directly communicate with a database** without ne
 
 Next.js API routes provide a **powerful, flexible** way to handle database interactions **without a separate backend**. But for large-scale apps, you may still need a **dedicated backend service** to handle long-running DB operations efficiently.  
 
-### **👉 What’s your experience with Next.js API routes? Do you prefer using them for full-stack development, or do you stick to a separate backend? Let’s discuss in the comments! 🚀**  
+### **👉 What's your experience with Next.js API routes? Do you prefer using them for full-stack development, or do you stick to a separate backend? Let's discuss in the comments! 🚀**  
 
 #NextJS #FullStackDevelopment #WebDevelopment #ReactJS #Database #API #Serverless  
