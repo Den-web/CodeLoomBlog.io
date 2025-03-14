@@ -1,0 +1,254 @@
+---
+title: "TypeScript Best Practices: A Comprehensive Guide"
+description: "Essential TypeScript practices and patterns for writing maintainable, type-safe code with advanced techniques and real-world examples."
+date: "2024-02-21"
+tags: ["CODE", "TYPESCRIPT", "GUIDE"]
+---
+
+# TypeScript Best Practices: A Comprehensive Guide
+
+## Type System Fundamentals
+
+### 1. Use Strict Mode
+Always enable strict mode in your `tsconfig.json`:
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
+  }
+}
+```
+
+### 2. Leverage Type Inference
+TypeScript's type inference is powerful. Use it when types are obvious:
+```typescript
+// Good - type is inferred
+const numbers = [1, 2, 3];
+const user = {
+  name: 'John',
+  age: 30
+};
+
+// Avoid - unnecessary type annotation
+const numbers: number[] = [1, 2, 3];
+```
+
+## Advanced Types
+
+### 1. Discriminated Unions
+Use discriminated unions for type-safe handling of different states:
+```typescript
+type Success = {
+  status: 'success';
+  data: User[];
+};
+
+type Error = {
+  status: 'error';
+  message: string;
+};
+
+type ApiResponse = Success | Error;
+
+function handleResponse(response: ApiResponse) {
+  if (response.status === 'success') {
+    return response.data; // TypeScript knows it's User[]
+  }
+  return response.message; // TypeScript knows it's string
+}
+```
+
+### 2. Utility Types
+Make use of built-in utility types:
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Only pick necessary fields
+type UserDTO = Pick<User, 'id' | 'name' | 'email'>;
+
+// Make all fields optional
+type PartialUser = Partial<User>;
+
+// Make all fields readonly
+type ReadonlyUser = Readonly<User>;
+```
+
+## Performance Optimization
+
+### 1. Type Imports
+Use type imports to avoid runtime overhead:
+```typescript
+// Good - only imports type information
+import type { User } from './types';
+
+// Avoid - imports entire module
+import { User } from './types';
+```
+
+### 2. Const Assertions
+Use const assertions for better type inference and performance:
+```typescript
+const config = {
+  api: {
+    url: 'https://api.example.com',
+    version: 'v1'
+  }
+} as const;
+
+// Now config.api.url is type "https://api.example.com" instead of string
+```
+
+## Error Handling
+
+### 1. Custom Error Types
+Create specific error types for better error handling:
+```typescript
+class ValidationError extends Error {
+  constructor(message: string, public field: string) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+
+function validateUser(user: User) {
+  if (!user.email.includes('@')) {
+    throw new ValidationError('Invalid email format', 'email');
+  }
+}
+```
+
+### 2. Result Types
+Use Result types for explicit error handling:
+```typescript
+type Result<T, E = Error> = 
+  | { success: true; value: T }
+  | { success: false; error: E };
+
+function divide(a: number, b: number): Result<number> {
+  if (b === 0) {
+    return { success: false, error: new Error('Division by zero') };
+  }
+  return { success: true, value: a / b };
+}
+```
+
+## Generic Patterns
+
+### 1. Factory Pattern
+Use generics with factory patterns:
+```typescript
+interface Repository<T> {
+  find(id: string): Promise<T>;
+  save(item: T): Promise<void>;
+}
+
+class GenericRepository<T> implements Repository<T> {
+  constructor(private collection: string) {}
+
+  async find(id: string): Promise<T> {
+    // Implementation
+  }
+
+  async save(item: T): Promise<void> {
+    // Implementation
+  }
+}
+
+// Usage
+const userRepo = new GenericRepository<User>('users');
+```
+
+### 2. Builder Pattern
+Implement type-safe builders:
+```typescript
+class QueryBuilder<T> {
+  private filters: Partial<T> = {};
+
+  where<K extends keyof T>(key: K, value: T[K]): this {
+    this.filters[key] = value;
+    return this;
+  }
+
+  build(): Partial<T> {
+    return this.filters;
+  }
+}
+
+// Usage
+const query = new QueryBuilder<User>()
+  .where('age', 30)
+  .where('name', 'John')
+  .build();
+```
+
+## Testing
+
+### 1. Type Testing
+Use `expectType` and `expectError` for type testing:
+```typescript
+import { expectType, expectError } from 'tsd';
+
+expectType<string>('hello');
+expectError<number>('world');
+```
+
+### 2. Mock Types
+Create proper type definitions for mocks:
+```typescript
+type Mock<T> = {
+  [P in keyof T]: T[P] extends (...args: any[]) => any
+    ? jest.Mock<ReturnType<T[P]>, Parameters<T[P]>>
+    : T[P];
+};
+
+const userServiceMock: Mock<UserService> = {
+  getUser: jest.fn(),
+  updateUser: jest.fn()
+};
+```
+
+## Code Organization
+
+### 1. Barrel Exports
+Use barrel exports for cleaner imports:
+```typescript
+// types/index.ts
+export * from './user';
+export * from './auth';
+export * from './api';
+
+// Usage
+import { User, Auth, Api } from './types';
+```
+
+### 2. Module Augmentation
+Extend existing types safely:
+```typescript
+declare module 'express-session' {
+  interface SessionData {
+    userId: string;
+    isAdmin: boolean;
+  }
+}
+```
+
+## Conclusion
+
+Following these TypeScript best practices will help you write more maintainable, type-safe, and performant code. Remember to:
+- Enable strict mode
+- Use type inference wisely
+- Leverage utility types
+- Implement proper error handling
+- Use generics for reusable code
+- Write type tests
+- Organize your code effectively
+
+Keep your TypeScript skills sharp by staying updated with the latest features and patterns in the ecosystem. 
