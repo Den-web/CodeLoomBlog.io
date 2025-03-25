@@ -1,0 +1,146 @@
+---
+title: "Understanding JavaScript Event Loop: A Deep Dive"
+description: "A comprehensive guide to JavaScript's Event Loop, explaining how synchronous and asynchronous operations are handled, including microtasks and macrotasks."
+date: "2024-02-24"
+tags: ["JAVASCRIPT", "CORE", "GUIDE"]
+---
+
+## Introduction to Event Loop
+
+JavaScript has a single-threaded engine, and code execution is organized using the **Event Loop**. It manages the execution of synchronous and asynchronous operations, ensuring their correct order.
+
+## Main Types of Tasks in Event Loop
+
+### 1. Synchronous Operations
+These are operations that execute **directly in the main thread**, without waiting. Examples include:
+- Regular expressions (`let a = 10;`)
+- Loops (`for`, `while`)
+- Function calls
+
+### 2. Microtasks
+These tasks are executed **immediately after the main code**, before macrotasks. Examples include:
+- `Promise.then() / catch() / finally()`
+- `queueMicrotask()`
+- `MutationObserver`
+- `process.nextTick()` (Node.js only)
+
+### 3. Macrotasks
+These tasks are executed **after all microtasks**. Examples include:
+- `setTimeout()` / `setInterval()`
+- `setImmediate()` (Node.js only)
+- Network requests (I/O)
+- `MessageChannel`
+- Event handlers (`addEventListener`)
+
+## Event Loop Algorithm
+
+Each Event Loop tick executes in the following order:
+
+1. **Execute all synchronous code** (main call stack)
+2. **Execute all microtasks** (if any appeared)
+3. **Execute one macrotask** (if available)
+4. **Render the page (if necessary)**
+5. **Event Loop moves to the next tick**
+
+> 💡 If microtasks (`Promise.then()`) are created within a macrotask (`setTimeout`, `setInterval`), they are executed in the same tick, before the next macrotask!
+
+## Event Loop Example
+
+```javascript
+console.log("Start"); // 1 - Synchronous code
+
+setTimeout(() => console.log("setTimeout"), 0); // 4 - Macrotask
+
+Promise.resolve().then(() => console.log("Promise 1")); // 3 - Microtask
+Promise.resolve().then(() => console.log("Promise 2")); // 3 - Microtask
+
+console.log("End"); // 2 - Synchronous code
+```
+
+**Console output:**
+```
+Start
+End
+Promise 1
+Promise 2
+setTimeout
+```
+
+Let's break down what happens:
+1. ✅ First, synchronous code is executed
+2. ✅ Then all microtasks are executed
+3. ✅ Finally, the macrotask (`setTimeout`) is executed
+
+## Key Takeaways
+
+1. **Microtasks execute before macrotasks**
+2. **Macrotasks are processed one at a time per Event Loop tick**
+3. **`process.nextTick()` (in Node.js) executes before other microtasks**
+4. **`requestAnimationFrame()` is not a macrotask, it executes before frame rendering**
+
+## Advanced Considerations
+
+### Render Timing
+The browser may batch multiple changes and perform a single reflow/repaint for better performance. The render step happens:
+- After microtasks queue is empty
+- Before processing the next macrotask
+- Only if there are visual changes
+
+### Performance Implications
+Understanding the Event Loop is crucial for performance optimization:
+- Heavy synchronous operations can block the main thread
+- Too many microtasks can delay rendering
+- Macrotasks provide natural breaks for the browser to render
+
+### Common Pitfalls
+1. **Blocking the Event Loop**
+```javascript
+// Bad - blocks the Event Loop
+while(true) {
+  // Heavy computation
+}
+
+// Better - break into smaller tasks
+function heavyTask(data) {
+  const chunk = data.slice(0, 1000);
+  if (chunk.length > 0) {
+    process(chunk);
+    setTimeout(() => heavyTask(data.slice(1000)), 0);
+  }
+}
+```
+
+2. **Microtask Queue Starvation**
+```javascript
+// Can block the Event Loop
+function recursivePromise() {
+  Promise.resolve().then(recursivePromise);
+}
+
+// Better - use macrotasks for recursive operations
+function betterRecursive() {
+  setTimeout(betterRecursive, 0);
+}
+```
+
+## Best Practices
+
+1. **Break Long Tasks**
+   - Split long synchronous operations into smaller chunks
+   - Use `setTimeout` to give the Event Loop a chance to handle other tasks
+
+2. **Optimize Microtasks**
+   - Avoid recursive microtasks
+   - Group related microtasks together
+
+3. **Handle Errors Properly**
+   - Always catch Promise rejections
+   - Use error boundaries in frameworks
+
+4. **Monitor Performance**
+   - Use Performance API to measure task duration
+   - Watch for long tasks in DevTools
+
+## Conclusion
+
+The Event Loop is a fundamental concept in JavaScript that enables asynchronous programming. Understanding how it works is crucial for writing performant and reliable applications. By properly managing synchronous code, microtasks, and macrotasks, you can ensure smooth execution and better user experience. 
