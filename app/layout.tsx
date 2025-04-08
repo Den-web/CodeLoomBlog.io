@@ -2,7 +2,7 @@ import Link from "next/link"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Analytics } from "@/components/analytics"
+import { Analytics } from "@vercel/analytics/react"
 import { ModeToggle } from "@/components/mode-toggle"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -56,7 +56,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </header>
             <main>{children}</main>
           </div>
-          <Analytics />
+          <Analytics 
+            mode="auto"
+            debug={false}
+            beforeSend={(event) => {
+              if (event.url) {
+                event.url = event.url.split('?')[0]
+              }
+              return event
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>
