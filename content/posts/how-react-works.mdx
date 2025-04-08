@@ -1,8 +1,8 @@
 ---
-title: "Understanding React's Core Mechanisms"
-description: "A deep dive into React's internal workings, including Virtual DOM, reconciliation process, component re-rendering, and performance optimization techniques."
-date: '2024-02-24'
-tags: ['REACT', 'CORE', 'PERFORMANCE']
+title: 'How React Works Under the Hood'
+description: 'Deep dive into React's internal architecture, virtual DOM, reconciliation process, and rendering optimization.'
+date: '2025-03-18'
+tags: ['REACT', 'JAVASCRIPT', 'CORE']
 ---
 
 ## Introduction to React's Architecture
@@ -140,40 +140,3 @@ setCount(count + 1)
 // ✅ Always uses latest state
 setCount(prevCount => prevCount + 1)
 ```
-
-## Performance Best Practices
-
-1. **Avoid Unnecessary Re-renders**
-
-   - Use `React.memo` for pure components
-   - Properly structure component hierarchy
-   - Keep state as local as possible
-
-2. **Optimize List Rendering**
-
-   - Always use proper keys
-   - Consider windowing for long lists
-   - Avoid inline object creation
-
-3. **Handle Events Efficiently**
-
-   - Use event delegation
-   - Memoize handlers with useCallback
-   - Debounce/throttle when appropriate
-
-4. **Manage State Updates**
-   - Use batching to your advantage
-   - Consider using reducer for complex state
-   - Split state logically
-
-## Key Takeaways
-
-✔ **Virtual DOM** optimizes real DOM manipulation
-✔ **Reconciliation** compares Virtual DOMs and updates only changed elements
-✔ **`React.memo`** prevents unnecessary re-renders when passing objects as props
-✔ **`key` in lists** is crucial for correct element updates
-✔ **Batching** reduces the number of re-renders
-
-## Conclusion
-
-Understanding React's internal mechanisms is crucial for building performant applications. By leveraging features like Virtual DOM, reconciliation, and various optimization techniques, you can create efficient and responsive React applications that provide excellent user experience.
