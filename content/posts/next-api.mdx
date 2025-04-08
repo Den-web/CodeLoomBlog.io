@@ -1,85 +1,94 @@
 ---
-title: "Next.js API Routes"
-description: "Understanding Next.js API Routes and how to use them effectively"
-date: "2024-02-27"
-tags: ["NEXT-JS", "ARCHITECTURE", "PERFORMANCE"]
+title: 'Next.js API Routes'
+description: 'Understanding Next.js API Routes and how to use them effectively'
+date: '2024-02-27'
+tags: ['NEXT-JS', 'ARCHITECTURE', 'PERFORMANCE']
 ---
 
 <Image src="/blog-post-next-api.png" width="718" height="404" alt="Image" />
 
-Next.js API routes allow us to directly communicate with a database** without needing an external backend. But is this approach always the best choice? Let's break down the **pros and cons.  
+Next.js API routes allow us to directly communicate with a database** without needing an external backend. But is this approach always the best choice? Let's break down the **pros and cons.
 
 ---
 
+### ✅ **Pros: Why Making Database Requests in Next.js API Routes is Awesome**
 
-### ✅ **Pros: Why Making Database Requests in Next.js API Routes is Awesome**  
+1️⃣ **🚀 Simplicity & Convenience**
 
-1️⃣ **🚀 Simplicity & Convenience**  
-   - No need to set up a separate backend (e.g., Express, NestJS).  
-   - API routes live **inside the same project**—fewer moving parts.  
+- No need to set up a separate backend (e.g., Express, NestJS).
+- API routes live **inside the same project**—fewer moving parts.
 
-2️⃣ **⚡ Serverless Scalability**  
-   - Next.js API routes work as **serverless functions** on Vercel or AWS Lambda.  
-   - Automatically scale based on demand (no server maintenance).  
+2️⃣ **⚡ Serverless Scalability**
 
-3️⃣ **🔒 Security & Environment Variables**  
-   - Database credentials stay **on the server**, not exposed to the frontend.  
-   - Can use **Edge Middleware** for authentication before hitting the database.  
+- Next.js API routes work as **serverless functions** on Vercel or AWS Lambda.
+- Automatically scale based on demand (no server maintenance).
 
-4️⃣ **📈 Improved Performance with ISR & Caching**  
-   - Next.js supports **Incremental Static Regeneration (ISR)**, reducing unnecessary DB queries.  
-   - Can use **revalidation strategies** to update data efficiently.  
+3️⃣ **🔒 Security & Environment Variables**
 
-5️⃣ **🛠️ API & Database in One Codebase**  
-   - Easier to maintain compared to separate front-end and back-end projects.  
-   - Great for small-to-medium applications where simplicity is key.  
+- Database credentials stay **on the server**, not exposed to the frontend.
+- Can use **Edge Middleware** for authentication before hitting the database.
 
----
+4️⃣ **📈 Improved Performance with ISR & Caching**
 
-### ❌ **Cons: When Next.js API Routes Might Not Be Ideal**  
+- Next.js supports **Incremental Static Regeneration (ISR)**, reducing unnecessary DB queries.
+- Can use **revalidation strategies** to update data efficiently.
 
-1️⃣ **⚠️ Cold Starts & Latency in Serverless Functions**  
-   - API routes are **stateless**, meaning they don't maintain a persistent DB connection.  
-   - **Cold starts** in serverless environments can slow down the first request.  
-   - **Solution:** Use **connection pooling** (e.g., Prisma's `@prisma/client`, PostgreSQL's `pg-pool`).  
+5️⃣ **🛠️ API & Database in One Codebase**
 
-2️⃣ **💰 Serverless DB Limitations**  
-   - Serverless functions **aren't designed** for long-running database transactions.  
-   - High DB traffic can lead to **rate limits** (e.g., Firebase free-tier restrictions).  
-   - **Solution:** Consider a dedicated backend for complex DB-heavy operations.  
-
-3️⃣ **🔄 No WebSockets or Real-Time Updates**  
-   - Next.js API routes use **stateless HTTP requests**, making **real-time updates** harder.  
-   - **Solution:** Use **Supabase, Firebase, or WebSockets** for real-time apps (e.g., chat apps, live dashboards).  
-
-4️⃣ **🛠️ Limited Background Jobs & Scheduled Tasks**  
-   - Next.js doesn't support **background jobs** (e.g., cron jobs, scheduled tasks).  
-   - **Solution:** Use **a separate backend** like Node.js with BullMQ, or external services like AWS Lambda + SQS.  
-
-5️⃣ **📌 Vendor Lock-in with Vercel**  
-   - While Vercel makes deployments **insanely easy**, serverless functions are **optimized for their platform**.  
-   - Some setups (e.g., long-running DB queries) might work better with **a dedicated backend server** instead of Vercel functions.  
+- Easier to maintain compared to separate front-end and back-end projects.
+- Great for small-to-medium applications where simplicity is key.
 
 ---
 
-### 🔥 **So, Should You Use Next.js API Routes for Database Requests?**  
+### ❌ **Cons: When Next.js API Routes Might Not Be Ideal**
+
+1️⃣ **⚠️ Cold Starts & Latency in Serverless Functions**
+
+- API routes are **stateless**, meaning they don't maintain a persistent DB connection.
+- **Cold starts** in serverless environments can slow down the first request.
+- **Solution:** Use **connection pooling** (e.g., Prisma's `@prisma/client`, PostgreSQL's `pg-pool`).
+
+2️⃣ **💰 Serverless DB Limitations**
+
+- Serverless functions **aren't designed** for long-running database transactions.
+- High DB traffic can lead to **rate limits** (e.g., Firebase free-tier restrictions).
+- **Solution:** Consider a dedicated backend for complex DB-heavy operations.
+
+3️⃣ **🔄 No WebSockets or Real-Time Updates**
+
+- Next.js API routes use **stateless HTTP requests**, making **real-time updates** harder.
+- **Solution:** Use **Supabase, Firebase, or WebSockets** for real-time apps (e.g., chat apps, live dashboards).
+
+4️⃣ **🛠️ Limited Background Jobs & Scheduled Tasks**
+
+- Next.js doesn't support **background jobs** (e.g., cron jobs, scheduled tasks).
+- **Solution:** Use **a separate backend** like Node.js with BullMQ, or external services like AWS Lambda + SQS.
+
+5️⃣ **📌 Vendor Lock-in with Vercel**
+
+- While Vercel makes deployments **insanely easy**, serverless functions are **optimized for their platform**.
+- Some setups (e.g., long-running DB queries) might work better with **a dedicated backend server** instead of Vercel functions.
+
+---
+
+### 🔥 **So, Should You Use Next.js API Routes for Database Requests?**
 
 ✅ **YES, if:**  
 ✔ You want a **quick, full-stack solution** with minimal setup.  
 ✔ Your app **doesn't require heavy, persistent DB connections**.  
-✔ You're using a serverless-friendly database like **PlanetScale, Supabase, or Firebase**.  
+✔ You're using a serverless-friendly database like **PlanetScale, Supabase, or Firebase**.
 
 🚨 **NO, if:**  
 ❌ You need **real-time updates** (consider WebSockets).  
 ❌ You're running **heavy transactions** (consider a dedicated backend).  
-❌ You need **background jobs & scheduled tasks** (Next.js doesn't support them).  
+❌ You need **background jobs & scheduled tasks** (Next.js doesn't support them).
 
 ---
 
-## **Final Thoughts**  
+## **Final Thoughts**
 
-Next.js API routes provide a **powerful, flexible** way to handle database interactions **without a separate backend**. But for large-scale apps, you may still need a **dedicated backend service** to handle long-running DB operations efficiently.  
+Next.js API routes provide a **powerful, flexible** way to handle database interactions **without a separate backend**. But for large-scale apps, you may still need a **dedicated backend service** to handle long-running DB operations efficiently.
 
-### **👉 What's your experience with Next.js API routes? Do you prefer using them for full-stack development, or do you stick to a separate backend? Let's discuss in the comments! 🚀**  
+### **👉 What's your experience with Next.js API routes? Do you prefer using them for full-stack development, or do you stick to a separate backend? Let's discuss in the comments! 🚀**
 
-#NextJS #FullStackDevelopment #WebDevelopment #ReactJS #Database #API #Serverless  
+#NextJS #FullStackDevelopment #WebDevelopment #ReactJS #Database #API #Serverless

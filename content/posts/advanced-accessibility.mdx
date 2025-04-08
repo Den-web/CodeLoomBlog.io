@@ -1,8 +1,8 @@
 ---
-title: "Advanced Accessibility Techniques for Frontend Developers"
-description: "A comprehensive guide to implementing advanced accessibility features in web applications, including ARIA techniques, keyboard navigation, screen reader optimization, and motion preferences."
-date: "2024-02-24"
-tags: ["ACCESSIBILITY", "FRONTEND", "GUIDE"]
+title: 'Advanced Accessibility Techniques for Frontend Developers'
+description: 'A comprehensive guide to implementing advanced accessibility features in web applications, including ARIA techniques, keyboard navigation, screen reader optimization, and motion preferences.'
+date: '2024-02-24'
+tags: ['ACCESSIBILITY', 'FRONTEND', 'GUIDE']
 ---
 
 Accessibility (a11y) is crucial for creating inclusive web experiences. While basic accessibility principles cover semantic HTML and ARIA attributes, advanced techniques ensure a seamless experience for all users, including those using screen readers or navigating via keyboard.
@@ -20,9 +20,9 @@ For dynamic content updates, use aria-live to announce changes to screen readers
 <button onclick="updateMessage()">Check Messages</button>
 
 <script>
-function updateMessage() {
-  document.getElementById('notification').innerText = 'You have new messages!';
-}
+  function updateMessage() {
+    document.getElementById('notification').innerText = 'You have new messages!'
+  }
 </script>
 ```
 
@@ -37,21 +37,21 @@ Ensure keyboard focus stays within a modal to prevent users from navigating outs
 function trapFocus(modal) {
   const focusableElements = modal.querySelectorAll(
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-  );
-  const firstElement = focusableElements[0];
-  const lastElement = focusableElements[focusableElements.length - 1];
+  )
+  const firstElement = focusableElements[0]
+  const lastElement = focusableElements[focusableElements.length - 1]
 
-  modal.addEventListener('keydown', (e) => {
+  modal.addEventListener('keydown', e => {
     if (e.key === 'Tab') {
       if (e.shiftKey && document.activeElement === firstElement) {
-        lastElement.focus();
-        e.preventDefault();
+        lastElement.focus()
+        e.preventDefault()
       } else if (!e.shiftKey && document.activeElement === lastElement) {
-        firstElement.focus();
-        e.preventDefault();
+        firstElement.focus()
+        e.preventDefault()
       }
     }
-  });
+  })
 }
 ```
 
@@ -65,19 +65,19 @@ Allow users to skip repetitive navigation elements:
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <style>
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 10px;
-  background: #000;
-  color: #fff;
-  padding: 8px;
-  text-decoration: none;
-}
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 10px;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    text-decoration: none;
+  }
 
-.skip-link:focus {
-  top: 10px;
-}
+  .skip-link:focus {
+    top: 10px;
+  }
 </style>
 ```
 
@@ -86,17 +86,17 @@ Allow users to skip repetitive navigation elements:
 For accessible custom components, manage focus dynamically:
 
 ```javascript
-const items = document.querySelectorAll('.menu-item');
-let focusedIndex = 0;
+const items = document.querySelectorAll('.menu-item')
+let focusedIndex = 0
 
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', e => {
   if (e.key === 'ArrowDown') {
-    focusedIndex = (focusedIndex + 1) % items.length;
+    focusedIndex = (focusedIndex + 1) % items.length
   } else if (e.key === 'ArrowUp') {
-    focusedIndex = (focusedIndex - 1 + items.length) % items.length;
+    focusedIndex = (focusedIndex - 1 + items.length) % items.length
   }
-  items[focusedIndex].focus();
-});
+  items[focusedIndex].focus()
+})
 ```
 
 ## 📢 3. Screen Reader Optimization
@@ -154,15 +154,25 @@ Ensure flashing elements comply with WCAG guidelines to prevent seizures:
 ```css
 /* ❌ Avoid rapid flashing */
 @keyframes flash {
-  0% { background-color: #fff; }
-  50% { background-color: #f00; }
-  100% { background-color: #fff; }
+  0% {
+    background-color: #fff;
+  }
+  50% {
+    background-color: #f00;
+  }
+  100% {
+    background-color: #fff;
+  }
 }
 
 /* ✅ Use gentle transitions instead */
 @keyframes smooth-fade {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 ```
 
@@ -179,11 +189,13 @@ Use these tools to detect accessibility issues:
 ### 5.2 Manual Testing Checklist
 
 1. **Screen Readers**
+
    - Test with NVDA (Windows)
    - Test with JAWS (Windows)
    - Test with VoiceOver (macOS)
 
 2. **Keyboard Navigation**
+
    - Navigate all interactive elements
    - Verify focus indicators
    - Test skip links
@@ -198,16 +210,19 @@ Use these tools to detect accessibility issues:
 ## Best Practices Summary
 
 1. **ARIA Usage**
+
    - Use ARIA attributes sparingly
    - Prefer semantic HTML when possible
    - Test ARIA implementations with screen readers
 
 2. **Keyboard Interaction**
+
    - Ensure all interactive elements are focusable
    - Provide visible focus indicators
    - Implement logical tab order
 
 3. **Content Structure**
+
    - Use proper heading hierarchy
    - Provide descriptive link text
    - Include proper landmark regions
@@ -226,4 +241,4 @@ By mastering these advanced accessibility techniques, you make the web more incl
 - Stay updated with WCAG guidelines and best practices
 - Integrate accessibility testing into your development workflow
 
-Start applying these techniques today to create truly accessible and user-friendly applications! 
+Start applying these techniques today to create truly accessible and user-friendly applications!

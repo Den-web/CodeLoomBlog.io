@@ -1,13 +1,14 @@
 ---
 title: "Understanding React's Core Mechanisms"
 description: "A deep dive into React's internal workings, including Virtual DOM, reconciliation process, component re-rendering, and performance optimization techniques."
-date: "2024-02-24"
-tags: ["REACT", "CORE", "PERFORMANCE"]
+date: '2024-02-24'
+tags: ['REACT', 'CORE', 'PERFORMANCE']
 ---
 
 ## Introduction to React's Architecture
 
 React is a library for building user interfaces that simplifies DOM manipulation. Previously, DOM changes were performed **manually**, which was **expensive** for the browser. React solves this problem using **Virtual DOM** — a **JavaScript object** that contains:
+
 - All component `props`
 - All component `state`
 - Methods affecting component behavior
@@ -49,7 +50,7 @@ React uses different comparison strategies for different types of props:
 ```javascript
 const MemoizedComponent = React.memo(function MyComponent(props) {
   // Your component logic
-});
+})
 ```
 
 ## Keys in Lists
@@ -58,17 +59,18 @@ React uses `key` to identify which elements have changed in lists:
 
 ```javascript
 // ❌ Bad - using index as key
-{items.map((item, index) => (
-  <ListItem key={index} item={item} />
-))}
+{
+  items.map((item, index) => <ListItem key={index} item={item} />)
+}
 
 // ✅ Good - using unique identifier
-{items.map(item => (
-  <ListItem key={item.id} item={item} />
-))}
+{
+  items.map(item => <ListItem key={item.id} item={item} />)
+}
 ```
 
 **Important rules:**
+
 - **`key` must be unique within the list**
 - **Don't use array index as `key`** as it can change between renders
 
@@ -80,17 +82,17 @@ Example of batching in action:
 
 ```javascript
 function Counter() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   function handleClick() {
-    setCount(count + 1); // These three calls
-    setCount(count + 1); // will be batched
-    setCount(count + 1); // into one update
+    setCount(count + 1) // These three calls
+    setCount(count + 1) // will be batched
+    setCount(count + 1) // into one update
   }
 
-  console.log("Re-render!");
+  console.log('Re-render!')
 
-  return <button onClick={handleClick}>{count}</button>;
+  return <button onClick={handleClick}>{count}</button>
 }
 ```
 
@@ -104,49 +106,57 @@ function Counter() {
 // ❌ Creates new function on every render
 const handleClick = () => {
   // handler logic
-};
+}
 
 // ✅ Memoized function reference
-const handleClick = useCallback(() => {
-  // handler logic
-}, [/* dependencies */]);
+const handleClick = useCallback(
+  () => {
+    // handler logic
+  },
+  [
+    /* dependencies */
+  ]
+)
 ```
 
 ### 2. Optimizing with useMemo
 
 ```javascript
 // ❌ Recalculates on every render
-const expensiveValue = computeExpensiveValue(a, b);
+const expensiveValue = computeExpensiveValue(a, b)
 
 // ✅ Only recalculates when dependencies change
 const memoizedValue = useMemo(() => {
-  return computeExpensiveValue(a, b);
-}, [a, b]);
+  return computeExpensiveValue(a, b)
+}, [a, b])
 ```
 
 ### 3. State Updates with Function Form
 
 ```javascript
 // ❌ May use stale state
-setCount(count + 1);
+setCount(count + 1)
 
 // ✅ Always uses latest state
-setCount(prevCount => prevCount + 1);
+setCount(prevCount => prevCount + 1)
 ```
 
 ## Performance Best Practices
 
 1. **Avoid Unnecessary Re-renders**
+
    - Use `React.memo` for pure components
    - Properly structure component hierarchy
    - Keep state as local as possible
 
 2. **Optimize List Rendering**
+
    - Always use proper keys
    - Consider windowing for long lists
    - Avoid inline object creation
 
 3. **Handle Events Efficiently**
+
    - Use event delegation
    - Memoize handlers with useCallback
    - Debounce/throttle when appropriate
@@ -166,4 +176,4 @@ setCount(prevCount => prevCount + 1);
 
 ## Conclusion
 
-Understanding React's internal mechanisms is crucial for building performant applications. By leveraging features like Virtual DOM, reconciliation, and various optimization techniques, you can create efficient and responsive React applications that provide excellent user experience. 
+Understanding React's internal mechanisms is crucial for building performant applications. By leveraging features like Virtual DOM, reconciliation, and various optimization techniques, you can create efficient and responsive React applications that provide excellent user experience.

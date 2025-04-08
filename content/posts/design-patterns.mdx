@@ -1,8 +1,8 @@
 ---
-title: "Design Patterns in JavaScript"
-description: "Common design patterns and their implementation in JavaScript"
-date: "2024-02-06"
-tags: ["CODE", "GUIDE", "NEXT-JS"]
+title: 'Design Patterns in JavaScript'
+description: 'Common design patterns and their implementation in JavaScript'
+date: '2024-02-06'
+tags: ['CODE', 'GUIDE', 'NEXT-JS']
 ---
 
 <Image src="/blog-post-7.png" width="718" height="404" alt="Image" />
@@ -12,18 +12,22 @@ Design patterns are proven solutions to common software design problems. They pr
 ---
 
 ## **Overview of Design Patterns**
-1. **Creational Patterns**: Focus on how objects are created, ensuring flexibility and efficiency.  
-   - *Examples*: Singleton, Factory.
 
-2. **Structural Patterns**: Simplify relationships between objects, making systems easier to manage.  
-   - *Examples*: Facade, Adapter.
+1. **Creational Patterns**: Focus on how objects are created, ensuring flexibility and efficiency.
 
-3. **Behavioral Patterns**: Handle communication between objects to ensure smooth workflows.  
-   - *Examples*: Strategy, Observer.
+   - _Examples_: Singleton, Factory.
+
+2. **Structural Patterns**: Simplify relationships between objects, making systems easier to manage.
+
+   - _Examples_: Facade, Adapter.
+
+3. **Behavioral Patterns**: Handle communication between objects to ensure smooth workflows.
+   - _Examples_: Strategy, Observer.
 
 ---
 
 ## **Pros of Using Design Patterns**
+
 - **Reusability**: Patterns provide tried-and-tested solutions that save time.
 - **Maintainability**: Simplified and organized code is easier to debug and extend.
 - **Scalability**: Patterns enable building systems that handle growth effectively.
@@ -32,170 +36,192 @@ Design patterns are proven solutions to common software design problems. They pr
 ---
 
 ## **Cons of Using Design Patterns**
+
 - **Overhead**: Implementing patterns can add unnecessary complexity if not needed.
 - **Learning Curve**: Understanding when and how to use patterns requires experience.
 - **Not One-Size-Fits-All**: Patterns must be tailored to fit specific scenarios.
 
 ---
 
-# **Creational Design Patterns in React with Practical Examples**  
+# **Creational Design Patterns in React with Practical Examples**
 
 <Image src="/blog-post-7.1.png" width="718" height="404" alt="Image" />
 
-## **1. Factory Pattern** – 🔄 *Creating Reusable and Dynamic Components*  
-### **What It Does:**  
+## **1. Factory Pattern** – 🔄 _Creating Reusable and Dynamic Components_
+
+### **What It Does:**
+
 The **Factory Pattern** provides a way to create objects without specifying their exact class. In React, it's useful for dynamically rendering components based on conditions.
 
 ### **Example: Factory Function for Buttons**
+
 We create a factory function to generate different button types dynamically.
 
 ```tsx
-const ButtonFactory = ({ type, label }: { type: "primary" | "secondary"; label: string }) => {
-  if (type === "primary") {
-    return <button className="bg-blue-500 text-white px-4 py-2">{label}</button>;
+const ButtonFactory = ({ type, label }: { type: 'primary' | 'secondary'; label: string }) => {
+  if (type === 'primary') {
+    return <button className="bg-blue-500 text-white px-4 py-2">{label}</button>
   }
-  return <button className="bg-gray-300 text-black px-4 py-2">{label}</button>;
-};
+  return <button className="bg-gray-300 text-black px-4 py-2">{label}</button>
+}
 
 const App = () => (
   <div>
     <ButtonFactory type="primary" label="Primary Button" />
     <ButtonFactory type="secondary" label="Secondary Button" />
   </div>
-);
+)
 ```
 
-### **💡 When to Use It?**  
-- When you need to **dynamically create UI components** based on a prop or condition.  
-- When implementing **theme-based UI components**.  
+### **💡 When to Use It?**
+
+- When you need to **dynamically create UI components** based on a prop or condition.
+- When implementing **theme-based UI components**.
 
 ---
 
-## **2. Singleton Pattern** – 🔁 *Ensuring a Single Instance for Global State*  
-### **What It Does:**  
+## **2. Singleton Pattern** – 🔁 _Ensuring a Single Instance for Global State_
+
+### **What It Does:**
+
 The **Singleton Pattern** ensures **only one instance** of an object exists. This is useful in React for **global state management**.
 
 ### **Example: Singleton for Global Theme State**
+
 ```tsx
 class ThemeState {
-  private static instance: ThemeState;
-  public theme: "light" | "dark" = "light";
+  private static instance: ThemeState
+  public theme: 'light' | 'dark' = 'light'
 
   private constructor() {} // Private constructor prevents direct instantiation
 
   static getInstance(): ThemeState {
     if (!ThemeState.instance) {
-      ThemeState.instance = new ThemeState();
+      ThemeState.instance = new ThemeState()
     }
-    return ThemeState.instance;
+    return ThemeState.instance
   }
 
   toggleTheme() {
-    this.theme = this.theme === "light" ? "dark" : "light";
+    this.theme = this.theme === 'light' ? 'dark' : 'light'
   }
 }
 
-const themeStore = ThemeState.getInstance();
-themeStore.toggleTheme();
-console.log(themeStore.theme); // dark
+const themeStore = ThemeState.getInstance()
+themeStore.toggleTheme()
+console.log(themeStore.theme) // dark
 ```
 
-### **💡 When to Use It?**  
-- For **global state management** without an external library like Redux.  
-- When you need to **share application-wide settings**, like themes or language preferences.  
+### **💡 When to Use It?**
+
+- For **global state management** without an external library like Redux.
+- When you need to **share application-wide settings**, like themes or language preferences.
 
 ---
 
-## **3. Prototype Pattern** – 📑 *Efficient Cloning of Objects in React State*  
-### **What It Does:**  
+## **3. Prototype Pattern** – 📑 _Efficient Cloning of Objects in React State_
+
+### **What It Does:**
+
 The **Prototype Pattern** allows objects to be cloned, which is useful in **React state updates without mutation**.
 
 ### **Example: Cloning State in React**
+
 ```tsx
-const [user, setUser] = useState({ name: "Alice", age: 25 });
+const [user, setUser] = useState({ name: 'Alice', age: 25 })
 
 const incrementAge = () => {
-  setUser(prevUser => ({ ...prevUser, age: prevUser.age + 1 })); // Clone object before updating
-};
+  setUser(prevUser => ({ ...prevUser, age: prevUser.age + 1 })) // Clone object before updating
+}
 ```
 
-### **💡 When to Use It?**  
-- When you need to **update React state immutably**.  
-- When dealing with **nested state objects**.  
+### **💡 When to Use It?**
+
+- When you need to **update React state immutably**.
+- When dealing with **nested state objects**.
 
 ---
 
-## **4. Builder Pattern** – 🏗️ *Configurable Component Creation*  
-### **What It Does:**  
+## **4. Builder Pattern** – 🏗️ _Configurable Component Creation_
+
+### **What It Does:**
+
 The **Builder Pattern** is useful when creating complex components with **multiple optional configurations**.
 
 ### **Example: Dynamic Card Builder**
+
 ```tsx
 class CardBuilder {
-  private card: { title?: string; description?: string; image?: string } = {};
+  private card: { title?: string; description?: string; image?: string } = {}
 
   setTitle(title: string) {
-    this.card.title = title;
-    return this;
+    this.card.title = title
+    return this
   }
 
   setDescription(description: string) {
-    this.card.description = description;
-    return this;
+    this.card.description = description
+    return this
   }
 
   setImage(image: string) {
-    this.card.image = image;
-    return this;
+    this.card.image = image
+    return this
   }
 
   build() {
-    return this.card;
+    return this.card
   }
 }
 
 // Usage
 const card = new CardBuilder()
-  .setTitle("React Builder Pattern")
-  .setDescription("Learn to use the Builder Pattern in React")
-  .setImage("image.png")
-  .build();
+  .setTitle('React Builder Pattern')
+  .setDescription('Learn to use the Builder Pattern in React')
+  .setImage('image.png')
+  .build()
 
-console.log(card);
+console.log(card)
 ```
 
-### **💡 When to Use It?**  
-- When creating **configurable UI components** like forms, modals, and widgets.  
-- When you want a **step-by-step component-building process**.  
+### **💡 When to Use It?**
+
+- When creating **configurable UI components** like forms, modals, and widgets.
+- When you want a **step-by-step component-building process**.
 
 ---
 
-## **5. Abstract Factory Pattern** – 🏭 *Creating Families of Related Components*  
-### **What It Does:**  
+## **5. Abstract Factory Pattern** – 🏭 _Creating Families of Related Components_
+
+### **What It Does:**
+
 The **Abstract Factory Pattern** provides an interface for creating related objects **without specifying their concrete classes**.
 
 ### **Example: Theme-based Button Factory**
-```tsx
-const LightButton = () => <button className="bg-white text-black">Light Mode</button>;
-const DarkButton = () => <button className="bg-black text-white">Dark Mode</button>;
 
-const ThemeFactory = (theme: "light" | "dark") => {
-  return theme === "light" ? <LightButton /> : <DarkButton />;
-};
+```tsx
+const LightButton = () => <button className="bg-white text-black">Light Mode</button>
+const DarkButton = () => <button className="bg-black text-white">Dark Mode</button>
+
+const ThemeFactory = (theme: 'light' | 'dark') => {
+  return theme === 'light' ? <LightButton /> : <DarkButton />
+}
 
 const App = () => {
-  const theme = "dark"; // Assume theme is obtained from context
-  return <div>{ThemeFactory(theme)}</div>;
-};
+  const theme = 'dark' // Assume theme is obtained from context
+  return <div>{ThemeFactory(theme)}</div>
+}
 ```
 
-### **💡 When to Use It?**  
-- When implementing **theme-based UI components**.  
-- When designing **component libraries** that support multiple themes or styles.  
+### **💡 When to Use It?**
+
+- When implementing **theme-based UI components**.
+- When designing **component libraries** that support multiple themes or styles.
 
 ---
 
 ## **Conclusion**
+
 Creational patterns help improve **scalability, maintainability, and reusability** in React applications. Understanding their use cases makes your code more **structured and efficient**.
 
 # **Structural Design Patterns in React: Practical Use Cases & Code Examples**
@@ -203,6 +229,7 @@ Creational patterns help improve **scalability, maintainability, and reusability
 <Image src="/blog-post-7.2.png" width="718" height="404" alt="Image" />
 
 ## **Introduction**
+
 Structural design patterns focus on organizing relationships between components, making systems more flexible and scalable. In React, these patterns help manage UI complexity, ensure better component composition, and improve maintainability.
 
 In this article, we'll explore **common Structural Patterns**, their practical **React use cases**, and how they compare to their general software engineering applications.
@@ -210,341 +237,389 @@ In this article, we'll explore **common Structural Patterns**, their practical *
 ---
 
 ## **1. Adapter Pattern — Bridging Incompatible Interfaces**
+
 ### **What It Does:**
+
 The **Adapter Pattern** allows incompatible interfaces to work together by providing a wrapper around an existing class or function.
 
 ### **Example: Converting API Response Data to Match UI Needs**
+
 ```tsx
 const apiResponse = {
-  fullName: "John Doe",
+  fullName: 'John Doe',
   userAge: 30,
-};
+}
 
-const adaptUserData = (data) => ({
+const adaptUserData = data => ({
   name: data.fullName,
   age: data.userAge,
-});
+})
 
 const UserProfile = ({ user }) => (
   <div>
     <h2>{user.name}</h2>
     <p>Age: {user.age}</p>
   </div>
-);
+)
 
 const App = () => {
-  const adaptedUser = adaptUserData(apiResponse);
-  return <UserProfile user={adaptedUser} />;
-};
+  const adaptedUser = adaptUserData(apiResponse)
+  return <UserProfile user={adaptedUser} />
+}
 ```
 
 ### **💡 When to Use It?**
+
 - When API responses **don't match the frontend model**.
 - When integrating **third-party libraries** that don't follow your structure.
 
 ---
 
 ## **2. Decorator Pattern — Enhancing Components Dynamically**
+
 ### **What It Does:**
+
 The **Decorator Pattern** allows behavior to be added dynamically to an object without modifying its structure.
 
 ### **Example: Higher-Order Component (HOC) for Authorization**
+
 ```tsx
-const withAuth = (WrappedComponent) => {
-  return (props) => {
-    const isAuthenticated = true; // Assume user is authenticated
-    return isAuthenticated ? <WrappedComponent {...props} /> : <p>Access Denied</p>;
-  };
-};
+const withAuth = WrappedComponent => {
+  return props => {
+    const isAuthenticated = true // Assume user is authenticated
+    return isAuthenticated ? <WrappedComponent {...props} /> : <p>Access Denied</p>
+  }
+}
 
-const Dashboard = () => <h2>Welcome to Dashboard</h2>;
-const ProtectedDashboard = withAuth(Dashboard);
+const Dashboard = () => <h2>Welcome to Dashboard</h2>
+const ProtectedDashboard = withAuth(Dashboard)
 
-const App = () => <ProtectedDashboard />;
+const App = () => <ProtectedDashboard />
 ```
 
 ### **💡 When to Use It?**
+
 - When adding **authentication logic** to multiple components.
 - When applying **logging, analytics, or styling enhancements** to existing components.
 
 ---
 
 ## **3. Facade Pattern — Simplifying Complex Operations**
+
 ### **What It Does:**
+
 The **Facade Pattern** provides a simple interface to a complex subsystem, reducing dependencies between components.
 
 ### **Example: Abstracting API Calls into a Service Module**
+
 ```tsx
 const UserService = {
   async fetchUser() {
-    const response = await fetch("https://api.example.com/user");
-    return response.json();
+    const response = await fetch('https://api.example.com/user')
+    return response.json()
   },
-};
+}
 
 const UserProfile = async () => {
-  const user = await UserService.fetchUser();
+  const user = await UserService.fetchUser()
   return (
     <div>
       <h2>{user.name}</h2>
       <p>Age: {user.age}</p>
     </div>
-  );
-};
+  )
+}
 ```
 
 ### **💡 When to Use It?**
+
 - When you want to **hide complexity** in service modules.
 - When handling **API calls, caching, or data formatting**.
 
 ---
 
 ## **4. Proxy Pattern — Controlling Component Access**
+
 ### **What It Does:**
+
 The **Proxy Pattern** acts as a substitute to control access to an object, often used for caching, logging, or permission checks.
 
 ### **Example: API Call Caching with Proxy**
-```tsx
-const apiCache = new Map();
 
-const fetchData = async (url) => {
+```tsx
+const apiCache = new Map()
+
+const fetchData = async url => {
   if (apiCache.has(url)) {
-    return apiCache.get(url);
+    return apiCache.get(url)
   }
-  const response = await fetch(url);
-  const data = await response.json();
-  apiCache.set(url, data);
-  return data;
-};
+  const response = await fetch(url)
+  const data = await response.json()
+  apiCache.set(url, data)
+  return data
+}
 
 const App = async () => {
-  const data = await fetchData("https://api.example.com/data");
-  return <div>Data: {JSON.stringify(data)}</div>;
-};
+  const data = await fetchData('https://api.example.com/data')
+  return <div>Data: {JSON.stringify(data)}</div>
+}
 ```
 
 ### **💡 When to Use It?**
+
 - When implementing **caching mechanisms**.
 - When **validating or logging requests** before processing.
 
 ---
 
 ## **5. Composite Pattern — Nesting Components in a Tree Structure**
+
 ### **What It Does:**
+
 The **Composite Pattern** treats individual and composite objects uniformly, making it useful for UI structures like trees or menus.
 
 ### **Example: Recursive Component Rendering for a Menu**
+
 ```tsx
 const MenuItem = ({ item }) => (
   <li>
     {item.name}
     {item.children && (
       <ul>
-        {item.children.map((child) => (
+        {item.children.map(child => (
           <MenuItem key={child.name} item={child} />
         ))}
       </ul>
     )}
   </li>
-);
+)
 
 const menuData = {
-  name: "Home",
+  name: 'Home',
   children: [
-    { name: "Products", children: [{ name: "Laptops" }, { name: "Phones" }] },
-    { name: "About" },
+    { name: 'Products', children: [{ name: 'Laptops' }, { name: 'Phones' }] },
+    { name: 'About' },
   ],
-};
+}
 
-const App = () => <ul><MenuItem item={menuData} /></ul>;
+const App = () => (
+  <ul>
+    <MenuItem item={menuData} />
+  </ul>
+)
 ```
 
 ### **💡 When to Use It?**
+
 - When rendering **nested structures like menus, trees, or file systems**.
 - When working with **recursive UI elements**.
 
 ---
 
 ## **Conclusion**
-Structural patterns in React help **simplify component interactions, improve reusability, and make applications more maintainable**.
 
+Structural patterns in React help **simplify component interactions, improve reusability, and make applications more maintainable**.
 
 # **Behavioral Design Patterns in React: Practical Use Cases and Comparisons**
 
 <Image src="/blog-post-7.3.png" width="718" height="404" alt="Image" />
 
 ## **Introduction**
+
 Behavioral design patterns focus on managing communication and interaction between objects in a system. In React, these patterns are especially useful for managing **component interactions**, **state transitions**, and **data flow** in a scalable and maintainable way.
 
 This article explores **Behavioral Patterns** and how they can be implemented in React applications. We'll cover **Observer**, **Strategy**, **Command**, **State**, and **Mediator** patterns with practical examples.
 
 ---
 
-## **1. Observer Pattern** – 🔔 *Reacting to Changes in State*
+## **1. Observer Pattern** – 🔔 _Reacting to Changes in State_
+
 ### **What It Does**
+
 The **Observer Pattern** establishes a subscription mechanism to notify multiple objects about changes in state. In React, this is commonly used for event handling or state updates.
 
 ### **Example: Observer Pattern for State Changes**
+
 ```tsx
 // Observable object
 const createStore = () => {
-  let state = {};
-  const listeners = [];
+  let state = {}
+  const listeners = []
 
   return {
-    subscribe: (listener) => listeners.push(listener),
-    setState: (newState) => {
-      state = { ...state, ...newState };
-      listeners.forEach((listener) => listener(state));
+    subscribe: listener => listeners.push(listener),
+    setState: newState => {
+      state = { ...state, ...newState }
+      listeners.forEach(listener => listener(state))
     },
     getState: () => state,
-  };
-};
+  }
+}
 
 // Usage
-const store = createStore();
+const store = createStore()
 
-store.subscribe((state) => console.log("State updated:", state));
-store.setState({ user: "John Doe" }); // Logs: State updated: { user: "John Doe" }
+store.subscribe(state => console.log('State updated:', state))
+store.setState({ user: 'John Doe' }) // Logs: State updated: { user: "John Doe" }
 ```
 
 ### **When to Use It**
+
 - **Redux**: Used in the `connect` function to observe store updates.
 - **Event Systems**: Reacting to custom events in components.
 
 ---
 
-## **2. Strategy Pattern** – 🎯 *Dynamic Component Behavior*
+## **2. Strategy Pattern** – 🎯 _Dynamic Component Behavior_
+
 ### **What It Does**
+
 The **Strategy Pattern** defines a family of algorithms and makes them interchangeable. In React, this is useful for implementing dynamic behavior based on props or context.
 
 ### **Example: Strategy for Dynamic Sorting**
+
 ```tsx
 const strategies = {
   ascending: (a, b) => a - b,
   descending: (a, b) => b - a,
-};
+}
 
 const SortList = ({ items, strategy }) => {
-  const sortedItems = [...items].sort(strategies[strategy]);
-  return <ul>{sortedItems.map((item) => <li key={item}>{item}</li>)}</ul>;
-};
+  const sortedItems = [...items].sort(strategies[strategy])
+  return (
+    <ul>
+      {sortedItems.map(item => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  )
+}
 
 // Usage
-<SortList items={[3, 1, 4, 1]} strategy="ascending" />;
+;<SortList items={[3, 1, 4, 1]} strategy="ascending" />
 ```
 
 ### **When to Use It**
+
 - Implementing **dynamic sorting**, filtering, or rendering strategies.
 
 ---
 
-## **3. Command Pattern** – 💡 *Encapsulating User Actions*
+## **3. Command Pattern** – 💡 _Encapsulating User Actions_
+
 ### **What It Does**
+
 The **Command Pattern** encapsulates actions as objects, allowing them to be stored, passed, and executed later. This is ideal for managing undo/redo functionality in React.
 
 ### **Example: Command Pattern for Undo/Redo**
-```tsx
-const commands = [];
-let currentState = "";
 
-const execute = (command) => {
-  commands.push(command);
-  currentState = command.execute(currentState);
-};
+```tsx
+const commands = []
+let currentState = ''
+
+const execute = command => {
+  commands.push(command)
+  currentState = command.execute(currentState)
+}
 
 const undo = () => {
-  const command = commands.pop();
-  currentState = command.undo(currentState);
-};
+  const command = commands.pop()
+  currentState = command.undo(currentState)
+}
 
 const command = {
-  execute: (state) => `${state} Command executed.`,
-  undo: (state) => state.replace(" Command executed.", ""),
-};
+  execute: state => `${state} Command executed.`,
+  undo: state => state.replace(' Command executed.', ''),
+}
 
-execute(command);
-console.log(currentState); // " Command executed."
-undo();
-console.log(currentState); // ""
+execute(command)
+console.log(currentState) // " Command executed."
+undo()
+console.log(currentState) // ""
 ```
 
 ### **When to Use It**
+
 - Managing **complex user actions** with undo/redo capabilities.
 - Handling **macro commands** in user workflows.
 
 ---
 
-## **4. State Pattern** – 🌀 *Dynamic State Transitions*
+## **4. State Pattern** – 🌀 _Dynamic State Transitions_
+
 ### **What It Does**
+
 The **State Pattern** allows an object to change its behavior based on its internal state. In React, this can be used to handle state-dependent component behavior.
 
 ### **Example: State Management in a Toggle Component**
+
 ```tsx
 const ToggleButton = () => {
-  const [state, setState] = useState("off");
+  const [state, setState] = useState('off')
 
   const toggleState = () => {
-    setState((prev) => (prev === "off" ? "on" : "off"));
-  };
+    setState(prev => (prev === 'off' ? 'on' : 'off'))
+  }
 
-  return (
-    <button onClick={toggleState}>
-      {state === "off" ? "Turn On" : "Turn Off"}
-    </button>
-  );
-};
+  return <button onClick={toggleState}>{state === 'off' ? 'Turn On' : 'Turn Off'}</button>
+}
 ```
 
 ### **When to Use It**
+
 - Handling **state transitions** in components, such as toggles or wizards.
 - Managing **stateful logic** in forms or modals.
 
 ---
 
-## **5. Mediator Pattern** – 🤝 *Centralizing Component Communication*
+## **5. Mediator Pattern** – 🤝 _Centralizing Component Communication_
+
 ### **What It Does**
+
 The **Mediator Pattern** centralizes communication between components to reduce coupling. In React, this is often implemented using a **Context API**.
 
 ### **Example: Mediator Pattern with Context API**
+
 ```tsx
-const ChatContext = createContext();
+const ChatContext = createContext()
 
 const ChatProvider = ({ children }) => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([])
 
-  const sendMessage = (message) => {
-    setMessages((prev) => [...prev, message]);
-  };
+  const sendMessage = message => {
+    setMessages(prev => [...prev, message])
+  }
 
-  return (
-    <ChatContext.Provider value={{ messages, sendMessage }}>
-      {children}
-    </ChatContext.Provider>
-  );
-};
+  return <ChatContext.Provider value={{ messages, sendMessage }}>{children}</ChatContext.Provider>
+}
 
 const ChatWindow = () => {
-  const { messages } = useContext(ChatContext);
-  return <ul>{messages.map((msg, idx) => <li key={idx}>{msg}</li>)}</ul>;
-};
+  const { messages } = useContext(ChatContext)
+  return (
+    <ul>
+      {messages.map((msg, idx) => (
+        <li key={idx}>{msg}</li>
+      ))}
+    </ul>
+  )
+}
 
 const ChatInput = () => {
-  const { sendMessage } = useContext(ChatContext);
-  const [input, setInput] = useState("");
+  const { sendMessage } = useContext(ChatContext)
+  const [input, setInput] = useState('')
 
   const handleSend = () => {
-    sendMessage(input);
-    setInput("");
-  };
+    sendMessage(input)
+    setInput('')
+  }
 
   return (
     <div>
-      <input value={input} onChange={(e) => setInput(e.target.value)} />
+      <input value={input} onChange={e => setInput(e.target.value)} />
       <button onClick={handleSend}>Send</button>
     </div>
-  );
-};
+  )
+}
 
 // Usage
 const App = () => (
@@ -552,14 +627,16 @@ const App = () => (
     <ChatWindow />
     <ChatInput />
   </ChatProvider>
-);
+)
 ```
 
 ### **When to Use It**
+
 - Centralizing **component communication** in complex forms or chat applications.
 - Reducing **coupling** between components.
 
 ---
 
 ## **Conclusion**
+
 Behavioral design patterns help improve **communication, scalability, and maintainability** in React applications. Whether it's managing **state transitions**, **component behavior**, or **user actions**, these patterns offer solutions to common challenges.

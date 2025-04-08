@@ -1,13 +1,13 @@
 ---
-title: "JavaScript Quirks"
-description: "Top 10 JavaScript quirks and how to handle them"
-date: "2024-02-06"
-tags: ["JAVASCRIPT", "CORE", "PERFORMANCE"]
+title: 'JavaScript Quirks'
+description: 'Top 10 JavaScript quirks and how to handle them'
+date: '2024-02-06'
+tags: ['JAVASCRIPT', 'CORE', 'PERFORMANCE']
 ---
 
 <Image src="/blog-post-6.png" width="718" height="404" alt="Image" />
 
-# 
+#
 
 This article explores 10 quirks in JavaScript that can surprise developers and how to handle them effectively.
 
@@ -18,11 +18,11 @@ This article explores 10 quirks in JavaScript that can surprise developers and h
 JavaScript uses the IEEE 754 standard for floating-point arithmetic, which can cause precision issues.
 
 ```javascript
-console.log(0.1 + 0.2); // 0.30000000000000004
-console.log(0.1 + 0.2 === 0.3); // false
+console.log(0.1 + 0.2) // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3) // false
 
 // Fix with rounding
-console.log(Number((0.1 + 0.2).toFixed(10)) === 0.3); // true
+console.log(Number((0.1 + 0.2).toFixed(10)) === 0.3) // true
 ```
 
 ---
@@ -32,11 +32,11 @@ console.log(Number((0.1 + 0.2).toFixed(10)) === 0.3); // true
 `NaN` (Not-a-Number) has a unique behavior: it is not equal to itself.
 
 ```javascript
-console.log(NaN === NaN); // false
-console.log(Object.is(NaN, NaN)); // true
+console.log(NaN === NaN) // false
+console.log(Object.is(NaN, NaN)) // true
 
 // Check for NaN
-console.log(Number.isNaN(NaN)); // true
+console.log(Number.isNaN(NaN)) // true
 ```
 
 ---
@@ -46,10 +46,10 @@ console.log(Number.isNaN(NaN)); // true
 A well-known bug in JavaScript that persists for backward compatibility.
 
 ```javascript
-console.log(typeof null); // "object"
+console.log(typeof null) // "object"
 
 // Explicitly check for null
-console.log(null === null); // true
+console.log(null === null) // true
 ```
 
 ---
@@ -59,11 +59,11 @@ console.log(null === null); // true
 Loose comparisons in JavaScript can lead to surprising results.
 
 ```javascript
-console.log([] == ''); // true
-console.log([1, 2] == '1,2'); // true
+console.log([] == '') // true
+console.log([1, 2] == '1,2') // true
 
 // Use strict comparison
-console.log([] === ''); // false
+console.log([] === '') // false
 ```
 
 ---
@@ -73,8 +73,8 @@ console.log([] === ''); // false
 JavaScript converts numbers to 32-bit signed integers during bitwise operations.
 
 ```javascript
-console.log(2147483647 | 0); // 2147483647
-console.log(2147483648 | 0); // -2147483648 (overflow)
+console.log(2147483647 | 0) // 2147483647
+console.log(2147483648 | 0) // -2147483648 (overflow)
 ```
 
 ---
@@ -84,9 +84,9 @@ console.log(2147483648 | 0); // -2147483648 (overflow)
 Adding arrays together converts them into strings.
 
 ```javascript
-console.log([] + []); // ""
-console.log([] + {}); // "[object Object]"
-console.log({} + []); // 0 (in some environments)
+console.log([] + []) // ""
+console.log([] + {}) // "[object Object]"
+console.log({} + []) // 0 (in some environments)
 ```
 
 ---
@@ -96,8 +96,8 @@ console.log({} + []); // 0 (in some environments)
 Boolean values are coerced into numbers during arithmetic operations.
 
 ```javascript
-console.log(true + true); // 2
-console.log(true - false); // 1
+console.log(true + true) // 2
+console.log(true - false) // 1
 ```
 
 ---
@@ -107,8 +107,8 @@ console.log(true - false); // 1
 `parseInt` processes a string until it encounters an invalid character.
 
 ```javascript
-console.log(parseInt('10.5')); // 10
-console.log(parseFloat('10.5')); // 10.5
+console.log(parseInt('10.5')) // 10
+console.log(parseFloat('10.5')) // 10.5
 ```
 
 ---
@@ -118,8 +118,8 @@ console.log(parseFloat('10.5')); // 10.5
 Loose comparison can lead to unexpected results when comparing empty strings.
 
 ```javascript
-console.log('' == 0); // true
-console.log('' === 0); // false
+console.log('' == 0) // true
+console.log('' === 0) // false
 ```
 
 ---
@@ -130,15 +130,15 @@ JavaScript functions do not enforce the number of arguments passed.
 
 ```javascript
 function add(a, b) {
-  return a + b;
+  return a + b
 }
-console.log(add(1, 2, 3)); // 3
+console.log(add(1, 2, 3)) // 3
 
 // Use default parameters
 function add(a, b = 0) {
-  return a + b;
+  return a + b
 }
-console.log(add(1)); // 1
+console.log(add(1)) // 1
 ```
 
 ---

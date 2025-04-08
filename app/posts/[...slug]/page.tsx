@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation"
-import { allPosts } from "contentlayer/generated"
+import { notFound } from 'next/navigation'
+import { allPosts } from 'contentlayer/generated'
 
-import { Metadata } from "next"
-import { Mdx } from "@/components/mdx-components"
-import { format } from "date-fns"
-import { CalendarIcon, ClockIcon, TagIcon } from "@heroicons/react/24/outline"
+import { Metadata } from 'next'
+import { Mdx } from '@/components/mdx-components'
+import { format } from 'date-fns'
+import { CalendarIcon, ClockIcon, TagIcon } from '@heroicons/react/24/outline'
 
 interface PostProps {
   params: {
@@ -12,9 +12,9 @@ interface PostProps {
   }
 }
 
-async function getPostFromParams(params: PostProps["params"]) {
-  const slug = params?.slug?.join("/")
-  const post = allPosts.find((post) => post.slugAsParams === slug)
+async function getPostFromParams(params: PostProps['params']) {
+  const slug = params?.slug?.join('/')
+  const post = allPosts.find(post => post.slugAsParams === slug)
 
   if (!post) {
     null
@@ -23,9 +23,7 @@ async function getPostFromParams(params: PostProps["params"]) {
   return post
 }
 
-export async function generateMetadata({
-  params,
-}: PostProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
   const post = await getPostFromParams(params)
 
   if (!post) {
@@ -38,9 +36,9 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
-  return allPosts.map((post) => ({
-    slug: post.slugAsParams.split("/"),
+export async function generateStaticParams(): Promise<PostProps['params'][]> {
+  return allPosts.map(post => ({
+    slug: post.slugAsParams.split('/'),
   }))
 }
 
@@ -51,7 +49,7 @@ export default async function PostPage({ params }: PostProps) {
     notFound()
   }
 
-  const readingTime = Math.ceil(post.body.raw.split(/\s+/).length / 200); // Assuming 200 words per minute
+  const readingTime = Math.ceil(post.body.raw.split(/\s+/).length / 200) // Assuming 200 words per minute
 
   return (
     <article className="max-w-4xl mx-auto py-8">
@@ -61,18 +59,14 @@ export default async function PostPage({ params }: PostProps) {
           {post.title}
         </h1>
         {post.description && (
-          <p className="text-xl text-zinc-600 dark:text-zinc-400 mb-6">
-            {post.description}
-          </p>
+          <p className="text-xl text-zinc-600 dark:text-zinc-400 mb-6">{post.description}</p>
         )}
-        
+
         {/* Meta Information */}
         <div className="flex flex-wrap gap-4 text-sm text-zinc-600 dark:text-zinc-400">
           <div className="flex items-center gap-2">
             <CalendarIcon className="w-4 h-4" />
-            <time dateTime={post.date}>
-              {format(new Date(post.date), 'MMMM d, yyyy')}
-            </time>
+            <time dateTime={post.date}>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
           </div>
           <div className="flex items-center gap-2">
             <ClockIcon className="w-4 h-4" />
@@ -82,7 +76,7 @@ export default async function PostPage({ params }: PostProps) {
             <div className="flex items-center gap-2 flex-wrap">
               <TagIcon className="w-4 h-4" />
               <div className="flex gap-2">
-                {post.tags.map((tag) => (
+                {post.tags.map(tag => (
                   <span
                     key={tag}
                     className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800"
@@ -107,9 +101,7 @@ export default async function PostPage({ params }: PostProps) {
           <div className="text-sm text-zinc-600 dark:text-zinc-400">
             Last updated: {format(new Date(post.date), 'MMMM d, yyyy')}
           </div>
-          <div className="flex gap-4">
-            {/* Add social share buttons or other actions here */}
-          </div>
+          <div className="flex gap-4">{/* Add social share buttons or other actions here */}</div>
         </div>
       </div>
     </article>

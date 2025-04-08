@@ -1,8 +1,8 @@
 ---
-title: "Monolithic vs Microservices"
-description: "Comparing monolithic and microservices architectures"
-date: "2024-02-11"
-tags: ["ARCHITECTURE", "DESIGN-PATTERNS", "PERFORMANCE"]
+title: 'Monolithic vs Microservices'
+description: 'Comparing monolithic and microservices architectures'
+date: '2024-02-11'
+tags: ['ARCHITECTURE', 'DESIGN-PATTERNS', 'PERFORMANCE']
 ---
 
 Monolithic vs Microservices Architecture: Which One to Choose?
@@ -89,16 +89,16 @@ Distributed transactions require Saga Patterns or Event Sourcing.
 Service-to-service communication via HTTP/gRPC or message queues adds network latency.
 More dependencies on API reliability and performance.
 📊 Comparison Table: Monolithic vs Microservices
-Feature	Monolithic Architecture	Microservices Architecture
-Scalability	Limited, entire app scales together	Independent, per service
-Deployment	One large deployment	Independent deployments per service
-Development Speed	Faster for small projects	Faster for large projects with teams
-Technology Stack	Uniform for entire app	Flexible, different stacks per service
-Fault Isolation	A single bug can crash the system	Failure in one service doesn't affect others
-Performance	Lower latency, no network calls	Higher latency due to API communication
-DevOps Complexity	Simple to deploy and manage	Requires CI/CD, containers, orchestration
-Maintenance	Harder as the app grows	Easier, modular development
-Cost	Lower infrastructure cost	Higher cost for infrastructure and operations
+Feature Monolithic Architecture Microservices Architecture
+Scalability Limited, entire app scales together Independent, per service
+Deployment One large deployment Independent deployments per service
+Development Speed Faster for small projects Faster for large projects with teams
+Technology Stack Uniform for entire app Flexible, different stacks per service
+Fault Isolation A single bug can crash the system Failure in one service doesn't affect others
+Performance Lower latency, no network calls Higher latency due to API communication
+DevOps Complexity Simple to deploy and manage Requires CI/CD, containers, orchestration
+Maintenance Harder as the app grows Easier, modular development
+Cost Lower infrastructure cost Higher cost for infrastructure and operations
 📌 When to Choose Monolithic?
 ✅ If you are building a small or early-stage project where rapid development is key. ✅ If you do not need high scalability and the user base is limited. ✅ If you want to minimize infrastructure and DevOps costs. ✅ If your team lacks experience in managing distributed systems. ✅ If your app has a well-defined and stable business logic that won't change often.
 

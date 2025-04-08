@@ -1,8 +1,8 @@
 ---
-title: "Understanding the Critical Rendering Path: A Deep Dive"
-description: "A comprehensive guide to the Critical Rendering Path (CRP), including DOM, CSSOM, Render Tree, Layout, and Paint phases, with practical optimization strategies."
-date: "2024-02-24"
-tags: ["CORE", "OPTIMIZATION", "PERFORMANCE"]
+title: 'Understanding the Critical Rendering Path: A Deep Dive'
+description: 'A comprehensive guide to the Critical Rendering Path (CRP), including DOM, CSSOM, Render Tree, Layout, and Paint phases, with practical optimization strategies.'
+date: '2024-02-24'
+tags: ['CORE', 'OPTIMIZATION', 'PERFORMANCE']
 ---
 
 ## 🚀 What is the Critical Rendering Path?
@@ -30,13 +30,7 @@ The browser parses HTML into a tree structure representing the page content:
 </html>
 
 <!-- Becomes DOM Tree -->
-html
-├── head
-│   └── title
-└── body
-    └── div
-        ├── h1
-        └── p
+html ├── head │ └── title └── body └── div ├── h1 └── p
 ```
 
 ### 2. Constructing the CSSOM (CSS Object Model)
@@ -70,23 +64,25 @@ The browser combines DOM and CSSOM to create a render tree containing only visib
 const renderTree = {
   nodeName: 'body',
   styles: { fontSize: '16px' },
-  children: [{
-    nodeName: 'div',
-    styles: { padding: '20px' },
-    children: [
-      {
-        nodeName: 'h1',
-        styles: { color: 'blue' },
-        content: 'Hello'
-      },
-      {
-        nodeName: 'p',
-        styles: { margin: '10px 0' },
-        content: 'World'
-      }
-    ]
-  }]
-};
+  children: [
+    {
+      nodeName: 'div',
+      styles: { padding: '20px' },
+      children: [
+        {
+          nodeName: 'h1',
+          styles: { color: 'blue' },
+          content: 'Hello',
+        },
+        {
+          nodeName: 'p',
+          styles: { margin: '10px 0' },
+          content: 'World',
+        },
+      ],
+    },
+  ],
+}
 ```
 
 ### 4. Layout (Reflow)
@@ -96,15 +92,13 @@ The browser calculates exact positions and dimensions of each element:
 ```javascript
 // Example of layout calculations
 function calculateLayout(element) {
-  const computedStyle = getComputedStyle(element);
-  const width = element.offsetWidth +
-    parseInt(computedStyle.marginLeft) +
-    parseInt(computedStyle.marginRight);
-  const height = element.offsetHeight +
-    parseInt(computedStyle.marginTop) +
-    parseInt(computedStyle.marginBottom);
-    
-  return { width, height };
+  const computedStyle = getComputedStyle(element)
+  const width =
+    element.offsetWidth + parseInt(computedStyle.marginLeft) + parseInt(computedStyle.marginRight)
+  const height =
+    element.offsetHeight + parseInt(computedStyle.marginTop) + parseInt(computedStyle.marginBottom)
+
+  return { width, height }
 }
 ```
 
@@ -115,6 +109,7 @@ The final step where visual elements are drawn on the screen.
 ## 🧱 DOM and CSSOM: The Foundation
 
 ### DOM Construction
+
 - Incremental process as HTML is parsed
 - Can be modified by JavaScript
 - Blocked by synchronous scripts
@@ -123,21 +118,24 @@ The final step where visual elements are drawn on the screen.
 // DOM manipulation example
 document.addEventListener('DOMContentLoaded', () => {
   // Safe to manipulate DOM here
-  const element = document.createElement('div');
-  element.textContent = 'Dynamic content';
-  document.body.appendChild(element);
-});
+  const element = document.createElement('div')
+  element.textContent = 'Dynamic content'
+  document.body.appendChild(element)
+})
 ```
 
 ### CSSOM Construction
+
 - Render-blocking resource
 - All CSS must be processed before rendering
 - Complex selectors can slow down CSSOM construction
 
 ```css
 /* Avoid complex selectors */
-.header .nav ul li a.active span { } /* ❌ Too specific */
-.nav-link-active { } /* ✅ Better */
+.header .nav ul li a.active span {
+} /* ❌ Too specific */
+.nav-link-active {
+} /* ✅ Better */
 
 /* Use media queries to make non-critical CSS non-blocking */
 @media print {
@@ -168,14 +166,14 @@ Layout performance considerations:
 
 ```javascript
 // ❌ Causes multiple reflows
-element.style.width = '100px';
-element.style.height = '100px';
-element.style.margin = '10px';
+element.style.width = '100px'
+element.style.height = '100px'
+element.style.margin = '10px'
 
 // ✅ Better: batch style changes
-element.style.cssText = 'width: 100px; height: 100px; margin: 10px;';
+element.style.cssText = 'width: 100px; height: 100px; margin: 10px;'
 // Or use classes
-element.classList.add('new-dimensions');
+element.classList.add('new-dimensions')
 ```
 
 ## 🎨 Paint: The Final Step
@@ -204,11 +202,11 @@ Optimize paint performance:
 <script defer src="non-critical.js"></script>
 
 <!-- Load CSS conditionally -->
-<link rel="stylesheet" href="print.css" media="print">
+<link rel="stylesheet" href="print.css" media="print" />
 
 <!-- Preload critical resources -->
-<link rel="preload" href="critical.css" as="style">
-<link rel="preload" href="hero-image.jpg" as="image">
+<link rel="preload" href="critical.css" as="style" />
+<link rel="preload" href="hero-image.jpg" as="image" />
 ```
 
 ### 2. Reduce File Sizes
@@ -217,17 +215,17 @@ Optimize paint performance:
 // Use code splitting
 import('./features/chat').then(module => {
   // Chat functionality loaded on demand
-});
+})
 
 // Minimize CSS with critical path extraction
-const criticalCSS = extractCritical(html);
+const criticalCSS = extractCritical(html)
 ```
 
 ### 3. Optimize Loading Order
 
 ```html
 <!-- Preconnect to required origins -->
-<link rel="preconnect" href="https://api.example.com">
+<link rel="preconnect" href="https://api.example.com" />
 
 <!-- Inline critical CSS -->
 <style>
@@ -235,51 +233,48 @@ const criticalCSS = extractCritical(html);
 </style>
 
 <!-- Async load non-critical CSS -->
-<link rel="stylesheet" href="non-critical.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="non-critical.css" media="print" onload="this.media='all'" />
 ```
 
 ### 4. Avoid Frequent Reflows
 
 ```javascript
 // ❌ Multiple reflows
-const list = document.querySelector('.list');
+const list = document.querySelector('.list')
 items.forEach(item => {
-  list.appendChild(createListItem(item));
-});
+  list.appendChild(createListItem(item))
+})
 
 // ✅ Single reflow
-const fragment = document.createDocumentFragment();
+const fragment = document.createDocumentFragment()
 items.forEach(item => {
-  fragment.appendChild(createListItem(item));
-});
-list.appendChild(fragment);
+  fragment.appendChild(createListItem(item))
+})
+list.appendChild(fragment)
 ```
 
 ## 📏 Measurement Tools
 
 ```javascript
 // Performance API usage
-performance.mark('startOperation');
+performance.mark('startOperation')
 // ... perform operation
-performance.mark('endOperation');
+performance.mark('endOperation')
 
-performance.measure(
-  'operationDuration',
-  'startOperation',
-  'endOperation'
-);
+performance.measure('operationDuration', 'startOperation', 'endOperation')
 
 // Get measurements
-const measures = performance.getEntriesByType('measure');
-console.log(measures);
+const measures = performance.getEntriesByType('measure')
+console.log(measures)
 ```
 
 ## 🚀 Best Practices Summary
 
 1. **Critical CSS Extraction**
+
 ```javascript
 // Example using critical package
-const critical = require('critical');
+const critical = require('critical')
 
 critical.generate({
   base: 'dist/',
@@ -290,28 +285,30 @@ critical.generate({
   },
   width: 1300,
   height: 900,
-});
+})
 ```
 
 2. **Resource Hints**
+
 ```html
-<link rel="preconnect" href="https://api.example.com">
-<link rel="dns-prefetch" href="https://cdn.example.com">
-<link rel="preload" href="critical.js" as="script">
+<link rel="preconnect" href="https://api.example.com" />
+<link rel="dns-prefetch" href="https://cdn.example.com" />
+<link rel="preload" href="critical.js" as="script" />
 ```
 
 3. **Performance Monitoring**
+
 ```javascript
 // Monitor layout thrashing
-const observer = new PerformanceObserver((list) => {
+const observer = new PerformanceObserver(list => {
   for (const entry of list.getEntries()) {
     if (entry.entryType === 'layout-shift') {
-      console.log('Layout shift detected:', entry);
+      console.log('Layout shift detected:', entry)
     }
   }
-});
+})
 
-observer.observe({ entryTypes: ['layout-shift'] });
+observer.observe({ entryTypes: ['layout-shift'] })
 ```
 
 ## 💡 Conclusion
@@ -330,4 +327,4 @@ Remember: measure first, then optimize. Use tools like Lighthouse, Chrome DevToo
 
 ## 📚 Further Reading
 
-For more detailed information about the Critical Rendering Path, check out the [MDN Web Docs guide](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path). 
+For more detailed information about the Critical Rendering Path, check out the [MDN Web Docs guide](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path).

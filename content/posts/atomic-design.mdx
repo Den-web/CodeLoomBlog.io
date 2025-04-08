@@ -1,8 +1,8 @@
 ---
-title: "Atomic Design Folder Structure for React"
-description: "How to create from scratch React app using Atomic Design."
-date: "2025-01-20"
-tags: ["ARCHITECTURE", "NEXT-JS", "DESIGN-PATTERNS"]
+title: 'Atomic Design Folder Structure for React'
+description: 'How to create from scratch React app using Atomic Design.'
+date: '2025-01-20'
+tags: ['ARCHITECTURE', 'NEXT-JS', 'DESIGN-PATTERNS']
 ---
 
 This article outlines the folder structure for a React project using Atomic Design principles. Atomic Design helps create a scalable and modular architecture by breaking down components into five hierarchical categories: **Atoms**, **Molecules**, **Organisms**, **Templates**, and **Pages**. Here's how you can organize your React project effectively.
@@ -12,7 +12,6 @@ This article outlines the folder structure for a React project using Atomic Desi
 <Image src="/blog-post-5.png" width="718" height="404" alt="Image" />
 
 ## Why Atomic Design?
-
 
 Atomic Design offers a clear methodology for building reusable components, improving maintainability and scalability. Each layer serves a specific purpose:
 
@@ -84,18 +83,18 @@ atoms/
 **Button.jsx**:
 
 ```javascript
-import React from 'react';
-import './Button.css';
+import React from 'react'
+import './Button.css'
 
 const Button = ({ label, onClick, type = 'button' }) => {
   return (
     <button type={type} className="button" onClick={onClick}>
       {label}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button
 ```
 
 **Button.css**:
@@ -118,20 +117,20 @@ export default Button;
 **Button.test.jsx**:
 
 ```javascript
-import { render, screen, fireEvent } from '@testing-library/react';
-import Button from './Button';
+import { render, screen, fireEvent } from '@testing-library/react'
+import Button from './Button'
 
 test('renders Button with label', () => {
-  render(<Button label="Click Me" onClick={() => {}} />);
-  expect(screen.getByText('Click Me')).toBeInTheDocument();
-});
+  render(<Button label="Click Me" onClick={() => {}} />)
+  expect(screen.getByText('Click Me')).toBeInTheDocument()
+})
 
 test('calls onClick handler when clicked', () => {
-  const onClick = jest.fn();
-  render(<Button label="Click Me" onClick={onClick} />);
-  fireEvent.click(screen.getByText('Click Me'));
-  expect(onClick).toHaveBeenCalledTimes(1);
-});
+  const onClick = jest.fn()
+  render(<Button label="Click Me" onClick={onClick} />)
+  fireEvent.click(screen.getByText('Click Me'))
+  expect(onClick).toHaveBeenCalledTimes(1)
+})
 ```
 
 ---
