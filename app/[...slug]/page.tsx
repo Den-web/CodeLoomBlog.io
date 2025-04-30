@@ -1,5 +1,3 @@
-'use server'
-
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { allPages } from 'contentlayer/generated'
