@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -32,10 +33,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <div className="flex items-center justify-between">
                 <span className="relative top-[4px] italic justify-end p-4">
                   <Link href="https://github.com/Den-web" target="_blank">
-                    <img
+                    <Image
                       alt="Denis Kirev"
                       src="https://github.com/den-web.png"
-                      className="relative -top-1 mx-1 inline h-8 w-8 rounded-full"
+                      width={32}
+                      height={32}
+                      className="relative -top-1 mx-1 inline rounded-full"
                     />
                   </Link>
                   by Denis Kirev
@@ -59,9 +62,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Analytics
             mode="auto"
             debug={false}
-            beforeSend={event => {
-              if (event.url) {
-                event.url = event.url.split('?')[0]
+            beforeSend={(event) => {
+              if ('url' in event) {
+                return {
+                  ...event,
+                  url: event.url.split('?')[0]
+                }
               }
               return event
             }}

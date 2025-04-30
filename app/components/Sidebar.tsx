@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Post } from 'contentlayer/generated'
 
 interface SidebarProps {
