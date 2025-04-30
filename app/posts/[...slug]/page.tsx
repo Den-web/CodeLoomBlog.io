@@ -1,3 +1,5 @@
+'use server'
+
 import { notFound } from 'next/navigation'
 import { allPosts } from 'contentlayer/generated'
 
@@ -12,7 +14,6 @@ interface PostProps {
   }
 }
 
-'use server'
 async function getPostFromParams(params: PostProps['params']) {
   const slug = params?.slug?.join('/')
   const post = allPosts.find(post => post.slugAsParams === slug)

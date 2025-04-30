@@ -1,3 +1,5 @@
+'use server'
+
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { allPages } from 'contentlayer/generated'
@@ -9,7 +11,6 @@ interface PageProps {
   }
 }
 
-'use server'
 async function getPageFromParams(params: PageProps['params']) {
   const slug = params?.slug?.join('/')
   const page = allPages.find(page => page.slugAsParams === slug)
