@@ -1,12 +1,10 @@
-'use server'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Analytics } from '@vercel/analytics/react'
 import { ModeToggle } from '@/components/mode-toggle'
+import { AnalyticsWrapper } from '@/components/analytics-wrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,17 +15,6 @@ export const metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode
-}
-
-async function handleAnalyticsEvent(event: any) {
-  'use server'
-  if ('url' in event) {
-    return {
-      ...event,
-      url: event.url.split('?')[0]
-    }
-  }
-  return event
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -72,11 +59,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </header>
             <main>{children}</main>
           </div>
-          <Analytics
-            mode="auto"
-            debug={false}
-            beforeSend={handleAnalyticsEvent}
-          />
+          <AnalyticsWrapper />
         </ThemeProvider>
       </body>
     </html>
