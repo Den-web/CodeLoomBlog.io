@@ -35,7 +35,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   <Link href="https://github.com/Den-web" target="_blank">
                     <Image
                       alt="Denis Kirev"
-                      src="https://github.com/den-web.png"
+                      src="https://avatars.githubusercontent.com/Den-web"
                       width={32}
                       height={32}
                       className="relative -top-1 mx-1 inline rounded-full"
