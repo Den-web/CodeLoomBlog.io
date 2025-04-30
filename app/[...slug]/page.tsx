@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { allPages } from 'contentlayer/generated'
-import { Mdx } from '@/components/mdx-components'
+import { MdxWrapper } from '@/components/mdx-wrapper'
 
 interface PageProps {
   params: {
@@ -47,11 +47,11 @@ export default async function PagePage({ params }: PageProps) {
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert">
-      <h1>{page.title}</h1>
-      {page.description && <p className="text-xl">{page.description}</p>}
-      <hr />
-      <Mdx code={page.body.code} />
+    <article className="py-6">
+      <h1 className="text-4xl font-bold">{page.title}</h1>
+      {page.description && <p className="text-xl mt-4">{page.description}</p>}
+      <hr className="my-6" />
+      <MdxWrapper code={page.body.code} />
     </article>
   )
 }

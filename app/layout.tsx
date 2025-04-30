@@ -1,3 +1,5 @@
+'use server'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import './globals.css'
@@ -15,6 +17,17 @@ export const metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode
+}
+
+async function handleAnalyticsEvent(event: any) {
+  'use server'
+  if ('url' in event) {
+    return {
+      ...event,
+      url: event.url.split('?')[0]
+    }
+  }
+  return event
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -62,15 +75,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Analytics
             mode="auto"
             debug={false}
-            beforeSend={(event) => {
-              if ('url' in event) {
-                return {
-                  ...event,
-                  url: event.url.split('?')[0]
-                }
-              }
-              return event
-            }}
+            beforeSend={handleAnalyticsEvent}
           />
         </ThemeProvider>
       </body>

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { allPosts } from 'contentlayer/generated'
 import { Metadata } from 'next'
-import { Mdx } from '@/components/mdx-components'
+import { MdxWrapper } from '@/components/mdx-wrapper'
 import { format } from 'date-fns'
 import { CalendarIcon, ClockIcon, TagIcon } from '@heroicons/react/24/outline'
 
@@ -90,9 +90,7 @@ export default async function PostPage({ params }: PostProps) {
       </div>
 
       {/* Main Content */}
-      <div className="prose dark:prose-invert max-w-none">
-        <Mdx code={post.body.code} />
-      </div>
+      <MdxWrapper code={post.body.code} />
 
       {/* Footer Section */}
       <div className="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800">
