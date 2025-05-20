@@ -1,0 +1,32 @@
+---
+title: 'CRC Cards: The Note Cards of Software Design'
+date: 2024-06-09
+description: 'How CRC (Class, Responsibility, Collaborator) cards bring clarity and flexibility to conceptual software architecture. Practical analogy, example, and actionable advice.'
+---
+
+# 🧠 Software Design, Meet Note Cards 🧠
+
+Ever tried organizing a speech using note cards? Each card captures a key talking point — and the power lies in arranging them logically to create a compelling narrative.
+
+Now imagine applying that same logic to software design.
+
+This is where **CRC cards** — **Class, Responsibility, Collaborator** — come in. Think of them as the "note cards" of conceptual software architecture.
+
+- **Class** — What component are we talking about?
+- **Responsibility** — What is this component supposed to do?
+- **Collaborator** — Who (or what) does it work with to fulfill its responsibilities?
+
+CRC cards let you visually and physically simulate a system's structure before diving into implementation. Cheap, flexible, and intentionally small — they encourage clarity, modular thinking, and iterative refinement.
+
+## Example: Designing a Bank Machine
+
+- **Bank Customer**: Responsible for inserting a card and selecting actions. Collaborates with the **Bank Machine**.
+- **Bank Machine**: Authenticates users, handles deposits/withdrawals, and displays options. Collaborates with **Bank Customer**, **Bank**, and **Network**.
+
+By simulating interactions between cards (just like roleplaying a conversation in your head), you discover gaps, identify new components (like **Encryption** or **Card Reader**), and refine your model.
+
+> CRC cards aren't magic — just like note cards don't write your speech. But they _do_ make your design thinking visible, flexible, and collaborative.
+
+**Next time you're kicking off a system design — start with CRC. Build the architecture before you build the code.**
+
+#SoftwareDesign #SystemArchitecture #CRCcards #ObjectOrientedDesign #DesignThinking #ClassResponsibilityCollaborator
