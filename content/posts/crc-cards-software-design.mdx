@@ -30,3 +30,58 @@ By simulating interactions between cards (just like roleplaying a conversation i
 **Next time you're kicking off a system design — start with CRC. Build the architecture before you build the code.**
 
 #SoftwareDesign #SystemArchitecture #CRCcards #ObjectOrientedDesign #DesignThinking #ClassResponsibilityCollaborator
+
+## What Are CRC Cards? (A Bit of History)
+
+CRC cards were invented by Ward Cunningham and Kent Beck in the late 1980s as a lightweight, collaborative way to design object-oriented systems. The idea: keep each card small, so you focus on essentials and avoid overengineering.
+
+## How to Run a CRC Card Workshop (Step-by-Step)
+
+1. **Gather your team** (devs, architects, maybe a product owner)
+2. **Define the scenario** (e.g., "Withdraw cash from ATM")
+3. **Write cards**: For each class, use an index card or sticky note:
+   - Top: Class name
+   - Left: Responsibilities (what it does)
+   - Right: Collaborators (who it talks to)
+4. **Roleplay the scenario**: Pass cards around, simulate method calls/interactions
+5. **Refine**: Add, split, or merge cards as gaps or redundancies appear
+6. **Repeat** for other scenarios
+
+## Detailed Example: Bank Machine CRC Cards
+
+| Class        | Responsibilities                              | Collaborators               |
+| ------------ | --------------------------------------------- | --------------------------- |
+| BankCustomer | Insert card, select action, enter PIN         | BankMachine                 |
+| BankMachine  | Authenticate, show menu, process transactions | BankCustomer, Bank, Network |
+| Bank         | Validate account, process withdrawal/deposit  | BankMachine                 |
+| Network      | Route requests to remote banks                | BankMachine                 |
+| CardReader   | Read card data                                | BankMachine                 |
+| Encryption   | Secure PIN and transaction data               | BankMachine                 |
+
+**Simulating a withdrawal:**
+
+1. BankCustomer inserts card (CardReader reads it)
+2. BankMachine asks for PIN (Encryption secures input)
+3. BankMachine authenticates with Bank
+4. If valid, BankMachine shows menu, processes withdrawal
+5. Bank updates account, Network routes if needed
+
+## Tips for Using CRC Cards in Modern Teams
+
+- Use digital tools (Miro, Mural, Google Jamboard) for remote teams
+- Keep cards simple — if a card gets crowded, split the class
+- Focus on _behavior_, not just data structure
+- Use CRC early, before UML or code
+- Take photos or digitize cards for documentation
+
+## Pitfalls & When Not to Use CRC
+
+- Not great for huge systems (too many cards = chaos)
+- Can miss non-object-oriented concerns (e.g., functional programming, data pipelines)
+- Don't treat CRC as a spec — it's a thinking tool, not a contract
+
+## Further Reading
+
+- [Ward Cunningham's CRC Card Page](http://c2.com/doc/oopsla89/paper.html)
+- [CRC Cards on Wikipedia](https://en.wikipedia.org/wiki/CRC_card)
+- [Object Design: Roles, Responsibilities, and Collaborations by Wirfs-Brock et al.]
