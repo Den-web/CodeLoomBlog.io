@@ -45,14 +45,14 @@ Next.js API routes allow us to directly communicate with a database** without ne
 1️⃣ **⚠️ Cold Starts & Latency in Serverless Functions**
 
 - API routes are **stateless**, meaning they don't maintain a persistent DB connection.
-- **Cold starts** in serverless environments can slow down the first request.
+  - **Cold starts** in serverless environments can slow down the first request.
 - **Solution:** Use **connection pooling** (e.g., Prisma's `@prisma/client`, PostgreSQL's `pg-pool`).
 
 2️⃣ **💰 Serverless DB Limitations**
 
 - Serverless functions **aren't designed** for long-running database transactions.
-- High DB traffic can lead to **rate limits** (e.g., Firebase free-tier restrictions).
-- **Solution:** Consider a dedicated backend for complex DB-heavy operations.
+  - High DB traffic can lead to **rate limits** (e.g., Firebase free-tier restrictions).
+  - **Solution:** Consider a dedicated backend for complex DB-heavy operations.
 
 3️⃣ **🔄 No WebSockets or Real-Time Updates**
 
@@ -62,7 +62,7 @@ Next.js API routes allow us to directly communicate with a database** without ne
 4️⃣ **🛠️ Limited Background Jobs & Scheduled Tasks**
 
 - Next.js doesn't support **background jobs** (e.g., cron jobs, scheduled tasks).
-- **Solution:** Use **a separate backend** like Node.js with BullMQ, or external services like AWS Lambda + SQS.
+  - **Solution:** Use **a separate backend** like Node.js with BullMQ, or external services like AWS Lambda + SQS.
 
 5️⃣ **📌 Vendor Lock-in with Vercel**
 
