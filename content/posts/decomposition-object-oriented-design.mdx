@@ -1,0 +1,68 @@
+---
+title: 'Decomposition in Object-Oriented Design: Breaking Down the Whole'
+date: 2024-06-09
+description: 'How decomposition helps break complex systems into manageable parts in object-oriented modeling. Practical examples, fixed vs. dynamic parts, lifetimes, and sharing.'
+---
+
+# 1.2.5 — Decomposition in Object-Oriented Design
+
+Decomposition is a core principle of object-oriented modeling and programming. It's about taking a whole thing and dividing it into parts — or, conversely, assembling a whole from separate parts. Decomposition makes complex problems easier to understand, design, and solve.
+
+## What is Decomposition?
+
+- **Decomposition**: Dividing a whole into distinct parts, each with its own responsibility.
+- The reverse: Combining parts with different functionalities to form a whole.
+- The goal: Make each part easier to understand, maintain, and evolve.
+
+## Why Decompose?
+
+- Keeps responsibilities separate and clear
+- Makes systems easier to reason about and test
+- Supports reuse and flexibility
+
+## Practical Examples
+
+### Car
+
+- Parts: transmission, motor, wheels, tires, doors, windows, seats, fuel
+- Each part has a specific purpose (e.g., wheels for movement, engine for power)
+- Decomposition helps keep these responsibilities distinct
+
+### Refrigerator
+
+- Parts: cabinet, doors, compressor, coils, freezer, ice-maker, shelves, drawers, food
+- Each part helps achieve the overall goal: keeping food cold and preserved
+- The freezer is responsible for freezing; the shelves for organizing food
+
+## Fixed vs. Dynamic Parts
+
+- **Fixed parts**: The number doesn't change over the object's lifetime (e.g., a car has one engine, four tires)
+- **Dynamic parts**: The number can change (e.g., a refrigerator can have a changing number of food items or shelves)
+- **Practice**: In a car, the number of passengers is dynamic; the number of doors is fixed
+
+## Parts Containing Parts
+
+- A part can itself be a whole with its own parts
+- Example: A car's instrument panel contains a fuel gauge, odometer, speedometer
+- Encapsulation: The panel treats instruments as black boxes, not caring about their internal workings
+
+## Lifetimes: How Parts and Wholes Relate
+
+- **Closely related lifetimes**: The part and whole exist together (e.g., refrigerator and freezer)
+- **Independent lifetimes**: The part and whole can exist separately (e.g., refrigerator and food items)
+- **Practice**: In a car, the frame has a closely related lifetime; tires do not (they can be replaced)
+
+## Sharing Parts
+
+- Sometimes, a part can belong to multiple wholes (e.g., a person is a daughter in one family, a spouse in another)
+- Sometimes, sharing isn't possible (e.g., a food item can't be in a fridge and an oven at the same time)
+
+## Why Decomposition Matters
+
+- Breaks down complicated systems into manageable, understandable pieces
+- Helps clarify relationships: fixed/dynamic, lifetimes, sharing
+- Supports better design, maintenance, and evolution of software
+
+---
+
+**How do you approach decomposition in your designs? What's the trickiest part you've had to break down? Share your examples below.**
