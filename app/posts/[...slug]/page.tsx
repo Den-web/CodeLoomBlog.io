@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { allPosts } from 'contentlayer/generated'
 import { Metadata } from 'next'
 import { MdxWrapper } from '@/components/mdx-wrapper'
+import { PostExternalLinks } from '@/components/post-external-links'
 import { format } from 'date-fns'
 import { CalendarIcon, ClockIcon, TagIcon } from '@heroicons/react/24/outline'
 
@@ -88,6 +89,8 @@ export default async function PostPage({ params }: PostProps) {
           )}
         </div>
       </div>
+
+      <PostExternalLinks post={post} />
 
       {/* Main Content */}
       <MdxWrapper code={post.body.code} />

@@ -1,0 +1,60 @@
+---
+title: 'OrchestrAI · From Instagram DM to order: pipeline, not one prompt'
+description: 'Ingest → extract → normalize → validate → plan → act — conversation-first commerce without a god prompt.'
+date: '2026-05-20'
+tags: ['AI', 'PIPELINE', 'SAAS', 'ORCHESTRAI']
+featured: true
+blogFirst: true
+series: orchestrai
+seriesOrder: 3
+---
+
+“Let’s add a GPT chatbot” is the fastest path to a demo and the slowest to a stable product. We build a **conveyor**, not a single conversation abstraction.
+
+Series recap:
+
+| #   | Topic                                                         |
+| --- | ------------------------------------------------------------- |
+| 1   | [UI AI vs Server AI](/posts/orchestrai-01-ui-ai-vs-server-ai) |
+| 2   | [HITL + gates](/posts/orchestrai-02-human-in-the-loop-gates)  |
+| 3   | Pipeline (this post)                                          |
+
+---
+
+## Why “chat” loses
+
+DM input is unstructured. You must compress it into **slots**: product, qty, delivery, payment. One mega-prompt breaks on edge cases and webhook retries.
+
+---
+
+## Theory: stages
+
+```
+ingest → extract → normalize → validate → plan → act
+```
+
+- **Idempotent** turns (Instagram webhook retry)
+- **Fallback**: heuristics, smaller model, human
+- AI does **not** write `Order` directly — only through normalized state + gates (part 2)
+
+---
+
+## How we wire it (conversation-first)
+
+- Instagram DM → `Message` → **turn pipeline**
+- Chain: extract → `ConversationOrderState` → validators → autofill tools → progress snapshot → **draft gate** → `replyPlan`
+- **Invariant:** no `message → Order` jump without a gate
+
+We do **not**:
+
+- One god-prompt for extract + reply + catalog match
+- DB writes from browser AI (part 1)
+- Ignore duplicate webhooks
+
+---
+
+## After launch
+
+When OrchestrAI is public we will cross-post this series to LinkedIn (UA) and link back here. **Instagram** context for the product will get its own channel later — `instagramUrl` in frontmatter when ready.
+
+Comments welcome: what to cover next — LLM observability, evals, multi-tenant isolation.

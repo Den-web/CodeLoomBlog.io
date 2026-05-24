@@ -1,0 +1,54 @@
+---
+title: 'Next.js v15.5 — Turbopack and what changed'
+description: 'Release breakdown from LinkedIn (UA): v15.5 highlights for teams on App Router + Turbopack.'
+date: '2025-08-20'
+tags: ['NEXT-JS', 'TURBOPACK', 'LINKEDIN']
+featured: true
+popularityScore: 100
+linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7364962176081584128'
+linkedinReactions: 100
+linkedinComments: 9
+linkedinDiscovery: '6.7k'
+---
+
+Mirror of my Next.js **v15.5** LinkedIn post. Full thread and metrics on LinkedIn.
+
+---
+
+## Hook (what I posted)
+
+“Something scary happened again in frontend” — meaning another **dense** Next.js release, not drama for clicks. v15.5 is the kind of update you skim once and regret ignoring in two sprints.
+
+---
+
+## Turbopack
+
+- Faster dev feedback loops for large monorepos
+- Still: verify **custom webpack loaders** and exotic Babel plugins before flipping the team flag
+- Keep a **fallback script** (`next dev --webpack`) in CI docs for one release cycle
+
+---
+
+## App Router & caching
+
+- Re-read **default caching** for `fetch` and Route Handlers if you upgraded from 14.x recently
+- `experimental` flags move — pin versions in `package.json` and document who owns the upgrade PR
+
+---
+
+## Migration checklist (short)
+
+1. `npx @next/codemod@latest` where applicable
+2. Run **E2E smoke** on auth + middleware routes
+3. Compare **cold build** time CI before/after Turbopack
+4. Post one **internal note** with “we enable / we wait” per feature flag
+
+---
+
+## Takeaway
+
+Changelog posts earn reach when they answer: **“Do I need to act this week?”** — not when they paste the whole release notes.
+
+---
+
+_Open LinkedIn for the UA version, reactions, and comments._

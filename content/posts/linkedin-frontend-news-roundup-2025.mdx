@@ -1,0 +1,57 @@
+---
+title: 'Frontend news roundup — React 19, Next.js 15, Node 22'
+description: 'Ukrainian LinkedIn post: ecosystem pulse — what changed and why it matters for daily work.'
+date: '2025-08-12'
+tags: ['REACT', 'NEXT-JS', 'NODE', 'LINKEDIN']
+featured: true
+popularityScore: 212
+linkedinUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7361462320767627266'
+linkedinReactions: 212
+linkedinComments: 8
+linkedinDiscovery: '18.8k'
+---
+
+Expanded mirror of my top LinkedIn post (UA). **Discussion and reactions live on LinkedIn** — link below.
+
+---
+
+## Why this post worked
+
+Developers do not need another hot take — they need a **curated pulse** on what actually shipped: React 19, Next.js 15, Node 22, and the tooling around them. The original thread was in Ukrainian for my local network; this page is the English reference on Code Loom.
+
+---
+
+## React 19 — what to care about
+
+- **Actions & form status** — less boilerplate for pending/error states
+- **Document metadata** — simpler head management in app router projects
+- **Ref as prop** — fewer `forwardRef` wrappers in component libraries
+
+**Practical takeaway:** upgrade paths are smoother when you already use the App Router and strict TypeScript — plan a staging pass for third-party UI kits.
+
+---
+
+## Next.js 15 — ecosystem shift
+
+- **Stable-ish App Router** assumptions for new greenfield work
+- **Caching defaults** changed how many teams think about `fetch` — read the migration notes before blaming “random” revalidation
+- **React 19 alignment** — check peer dependency matrices on `npm install`
+
+---
+
+## Node 22 — runtime
+
+- LTS cadence matters for **Docker base images** and CI
+- Native test runner and permission flags — worth a spike if you still run Jest-only everywhere
+
+---
+
+## How I use these roundups
+
+1. Pick **3–5** changes that affect _our_ stack (not the whole changelog)
+2. Link official release notes — no screenshot dumps
+3. End with **one question** so comments carry the post (see metrics on LinkedIn)
+
+---
+
+_Originally published on LinkedIn — open the card above for reactions, comments, and discovery stats._

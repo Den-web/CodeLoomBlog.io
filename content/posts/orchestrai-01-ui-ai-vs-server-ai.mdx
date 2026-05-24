@@ -1,0 +1,63 @@
+---
+title: 'OrchestrAI · Two brains: UI AI vs Server AI'
+description: 'Why product AI must split interface hints from business logic — browser suggests, server decides.'
+date: '2026-05-18'
+tags: ['AI', 'ARCHITECTURE', 'SAAS', 'ORCHESTRAI']
+featured: true
+blogFirst: true
+series: orchestrai
+seriesOrder: 1
+---
+
+Modern AI products are not “one LLM for everything.” In **OrchestrAI** (Instagram DM → order for e-commerce operators) we run two layers: a **fast UI brain** for the inbox and a **slow server brain** for business rules, PostgreSQL, and gates.
+
+This post is **blog-first** — the LinkedIn (UA) version ships when we launch publicly.
+
+---
+
+## The problem with a “god LLM” in the browser
+
+One model in the client looks magical in demos. In production you get:
+
+- **Tenant leakage** — prompts and context cross customers
+- **No audit trail** — “the model said it” is not a contract
+- **Writes you cannot undo** — hallucinated slots land in `Order` / `Catalog`
+
+---
+
+## Theory: two layers
+
+|                 | Browser / UI AI                        | Server AI                               |
+| --------------- | -------------------------------------- | --------------------------------------- |
+| Job             | UX: rewrite, translate, summary, hints | Business: extract, validate, gate, plan |
+| Latency         | Low                                    | Can be higher                           |
+| Source of truth | No                                     | Yes                                     |
+| DB writes       | Never                                  | Only after gates                        |
+
+**Rule:** the browser **suggests**; the server **decides**.
+
+---
+
+## How we apply it (high level)
+
+- **Browser AI** — rewrite / translate / summarize in the inbox; drafts only; **no** PostgreSQL writes.
+- **Server AI** — `processCustomerDmTurn`: extraction → slots → gate → reply plan.
+- **UI contract** — `verified` = server pipeline only; browser output is `preview / not verified`.
+
+We do **not**:
+
+- Give the client LLM direct writes to Order or Catalog
+- Show a green “confirmed” state without server validation
+- Mix “fast hints” and “final decision” in one UI state
+
+---
+
+## Next in the series
+
+**Part 2** — human-in-the-loop: why “the model created the order” is an anti-pattern for money-moving SaaS.
+
+**Part 3** — pipeline from Instagram DM to domain model (not one prompt).
+
+---
+
+_Building OrchestrAI in public — AI architecture for creator-commerce, not a single ChatGPT button._

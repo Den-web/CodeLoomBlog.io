@@ -49,6 +49,39 @@ export const Post = defineDocumentType(() => ({
       of: { type: 'string' },
       default: [],
     },
+    featured: {
+      type: 'boolean',
+      default: false,
+    },
+    popularityScore: {
+      type: 'number',
+      default: 0,
+    },
+    linkedinUrl: {
+      type: 'string',
+    },
+    linkedinReactions: {
+      type: 'number',
+    },
+    linkedinComments: {
+      type: 'number',
+    },
+    linkedinDiscovery: {
+      type: 'string',
+    },
+    instagramUrl: {
+      type: 'string',
+    },
+    series: {
+      type: 'string',
+    },
+    seriesOrder: {
+      type: 'number',
+    },
+    blogFirst: {
+      type: 'boolean',
+      default: false,
+    },
   },
   computedFields,
 }))

@@ -1,0 +1,54 @@
+---
+title: 'OrchestrAI · Human-in-the-loop is architecture, not a feature'
+description: 'Confidence, blockers, draft gates, and audit — how we keep LLMs from owning money-moving actions.'
+date: '2026-05-19'
+tags: ['AI', 'HITL', 'SAAS', 'ORCHESTRAI']
+featured: true
+blogFirst: true
+series: orchestrai
+seriesOrder: 2
+---
+
+“The model said it — order created” sounds great on a pitch deck. For e-commerce with real money it is an **anti-pattern**. Here is the contour we use in **OrchestrAI**.
+
+[Part 1](/posts/orchestrai-01-ui-ai-vs-server-ai) — UI AI vs Server AI.
+
+---
+
+## LLM ≠ contract
+
+Models are probabilistic: slot hallucinations, wording drift, retries. The product must **survive** a bad turn without corrupting state.
+
+---
+
+## Theory: the contour
+
+```
+intent → structured draft → missing fields → confirm → execute → audit
+```
+
+- **Confidence** and **blockers** at every step
+- Explicit **gates** before a final `Order`
+- The operator is part of the **state machine**, not decoration
+
+Server AI from part 1 **never** bypasses review gates for money-moving actions.
+
+---
+
+## In our stack (high level)
+
+- DM → `AIExtraction` / order state → **draft gate** (confidence, slots, catalog, blockers)
+- **Review queue** — operator edits and confirms
+- **AuditLog** — trace from message to order
+
+We do **not**:
+
+- Auto-send “final” text to the customer without a gate
+- Create `Order` below threshold without override + audit
+- Hide blockers for prettier UX
+
+---
+
+## Next
+
+**Part 3** — from Instagram DM to domain model: why you need a **pipeline**, not one prompt.
