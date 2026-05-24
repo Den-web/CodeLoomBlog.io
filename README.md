@@ -1,5 +1,20 @@
-# Next.js + Contentlayer
+# Code Loom Blog
 
-A template with Next.js 13 app dir, Contentlayer, Tailwind CSS and dark mode.
+Technical blog on **software architecture, full-stack development, and AI-augmented delivery**.
 
-https://next-contentlayer.vercel.app
+**Live:** [code-loom-blog-io.vercel.app](https://code-loom-blog-io.vercel.app)
+
+**Author:** [Denys Kirev](https://github.com/Den-web) — Full-Stack Developer · AI-augmented workflows · Founder @ OrchestrAI
+
+## Stack
+
+Next.js · Contentlayer · MDX · Tailwind CSS · TypeScript
+
+## Local dev
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Built from the [Next.js + Contentlayer](https://next-contentlayer.vercel.app) template.
