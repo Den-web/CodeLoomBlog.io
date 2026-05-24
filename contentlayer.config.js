@@ -82,6 +82,10 @@ export const Post = defineDocumentType(() => ({
       type: 'boolean',
       default: false,
     },
+    linkedinMirror: {
+      type: 'boolean',
+      default: false,
+    },
   },
   computedFields,
 }))

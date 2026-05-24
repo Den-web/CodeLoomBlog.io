@@ -1,7 +1,7 @@
 'use client'
 
 import { Post } from 'contentlayer/generated'
-import { ORCHESTRAI_TOPIC, countPostsForTopic, getTopicList } from '@/lib/posts'
+import { LINKEDIN_TOPIC, ORCHESTRAI_TOPIC, countPostsForTopic, getTopicList } from '@/lib/posts'
 
 interface TopicsNavProps {
   posts: Post[]
@@ -10,7 +10,7 @@ interface TopicsNavProps {
 }
 
 export function TopicsNav({ posts, selectedTopic, onTopicSelect }: TopicsNavProps) {
-  const { orchestraiCount, tags } = getTopicList(posts)
+  const { orchestraiCount, linkedinCount, tags } = getTopicList(posts)
   const totalCount = posts.length
 
   const itemClass = (active: boolean) =>
@@ -22,6 +22,8 @@ export function TopicsNav({ posts, selectedTopic, onTopicSelect }: TopicsNavProp
     active
       ? 'text-white'
       : 'text-pink-500 hover:text-pink-600 dark:text-pink-400 dark:hover:text-pink-300'
+
+  const toggle = (topic: string) => onTopicSelect(selectedTopic === topic ? null : topic)
 
   return (
     <aside className="w-52 shrink-0 pr-6 pt-12 border-r border-zinc-100 dark:border-zinc-800/80">
@@ -43,13 +45,26 @@ export function TopicsNav({ posts, selectedTopic, onTopicSelect }: TopicsNavProp
             </button>
           </li>
 
+          {linkedinCount > 0 && (
+            <li>
+              <button
+                type="button"
+                onClick={() => toggle(LINKEDIN_TOPIC)}
+                className={itemClass(selectedTopic === LINKEDIN_TOPIC)}
+              >
+                <span className={labelClass(selectedTopic === LINKEDIN_TOPIC)}>LinkedIn</span>
+                <span className={selectedTopic === LINKEDIN_TOPIC ? 'text-white' : 'text-gray-500'}>
+                  ({linkedinCount})
+                </span>
+              </button>
+            </li>
+          )}
+
           {orchestraiCount > 0 && (
             <li>
               <button
                 type="button"
-                onClick={() =>
-                  onTopicSelect(selectedTopic === ORCHESTRAI_TOPIC ? null : ORCHESTRAI_TOPIC)
-                }
+                onClick={() => toggle(ORCHESTRAI_TOPIC)}
                 className={itemClass(selectedTopic === ORCHESTRAI_TOPIC)}
               >
                 <span className={labelClass(selectedTopic === ORCHESTRAI_TOPIC)}>OrchestrAI</span>
@@ -66,7 +81,7 @@ export function TopicsNav({ posts, selectedTopic, onTopicSelect }: TopicsNavProp
             <li key={tag}>
               <button
                 type="button"
-                onClick={() => onTopicSelect(selectedTopic === tag ? null : tag)}
+                onClick={() => toggle(tag)}
                 className={itemClass(selectedTopic === tag)}
               >
                 <span className={labelClass(selectedTopic === tag)}>{tag.toUpperCase()}</span>

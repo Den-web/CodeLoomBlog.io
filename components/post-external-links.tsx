@@ -1,5 +1,6 @@
+import Link from 'next/link'
 import { Post } from 'contentlayer/generated'
-import { formatLinkedInStats } from '@/lib/posts'
+import { formatLinkedInStats, isLinkedInMirrorPost } from '@/lib/posts'
 
 interface PostExternalLinksProps {
   post: Post
@@ -13,8 +14,23 @@ export function PostExternalLinks({ post }: PostExternalLinksProps) {
     return null
   }
 
+  const linkedinMirror = isLinkedInMirrorPost(post)
+
   return (
     <div className="mb-8 space-y-3">
+      {linkedinMirror && (
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          Part of the{' '}
+          <Link
+            href="/?topic=linkedin"
+            className="text-pink-600 dark:text-pink-400 hover:underline"
+          >
+            LinkedIn
+          </Link>{' '}
+          topic — expanded mirror; engagement lives on the original post below.
+        </p>
+      )}
+
       {post.blogFirst && post.series && (
         <div className="rounded-lg border border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950/40 px-4 py-3 text-sm text-amber-900 dark:text-amber-100">
           <strong>Build in public.</strong> Ця стаття з&apos;явилась на блозі раніше за LinkedIn —

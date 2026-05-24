@@ -1,10 +1,22 @@
 import { Post } from 'contentlayer/generated'
 
 export const ORCHESTRAI_TOPIC = 'ORCHESTRAI'
+export const LINKEDIN_TOPIC = 'LINKEDIN'
 export const POSTS_PER_PAGE = 10
 
 export function isOrchestraiPost(post: Post): boolean {
   return post.series === 'orchestrai' || (post.tags?.includes(ORCHESTRAI_TOPIC) ?? false)
+}
+
+/** Mirrors of LinkedIn posts — linked original + engagement metrics on the blog. */
+export function isLinkedInMirrorPost(post: Post): boolean {
+  if (post.blogFirst) {
+    return false
+  }
+  if (post.linkedinMirror) {
+    return true
+  }
+  return Boolean(post.linkedinUrl)
 }
 
 export function getPopularityScore(post: Post): number {
@@ -42,12 +54,21 @@ export function sortOrchestraiPosts(posts: Post[]): Post[] {
   })
 }
 
+export function sortLinkedInMirrorPosts(posts: Post[]): Post[] {
+  return [...posts]
+    .filter(isLinkedInMirrorPost)
+    .sort((a, b) => getPopularityScore(b) - getPopularityScore(a))
+}
+
 export function filterPostsByTopic(posts: Post[], topic: string | null): Post[] {
   if (!topic) {
     return posts
   }
   if (topic === ORCHESTRAI_TOPIC) {
     return sortOrchestraiPosts(posts.filter(isOrchestraiPost))
+  }
+  if (topic === LINKEDIN_TOPIC) {
+    return sortLinkedInMirrorPosts(posts)
   }
   return posts.filter(post => post.tags?.includes(topic))
 }
@@ -66,32 +87,41 @@ export function paginatePosts<T>(items: T[], page: number, perPage: number = POS
   }
 }
 
-export function getTopicList(posts: Post[]): { orchestraiCount: number; tags: string[] } {
+const RESERVED_TAGS = new Set([ORCHESTRAI_TOPIC, LINKEDIN_TOPIC])
+
+export function getTopicList(posts: Post[]): {
+  orchestraiCount: number
+  linkedinCount: number
+  tags: string[]
+} {
   const tagSet = new Set<string>()
   for (const post of posts) {
     for (const tag of post.tags ?? []) {
-      if (tag !== ORCHESTRAI_TOPIC) {
+      if (!RESERVED_TAGS.has(tag)) {
         tagSet.add(tag)
       }
     }
   }
   const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b))
-  const orchestraiCount = posts.filter(isOrchestraiPost).length
-  return { orchestraiCount, tags }
+  return {
+    orchestraiCount: posts.filter(isOrchestraiPost).length,
+    linkedinCount: posts.filter(isLinkedInMirrorPost).length,
+    tags,
+  }
 }
 
 export function countPostsForTopic(posts: Post[], topic: string): number {
   if (topic === ORCHESTRAI_TOPIC) {
     return posts.filter(isOrchestraiPost).length
   }
+  if (topic === LINKEDIN_TOPIC) {
+    return posts.filter(isLinkedInMirrorPost).length
+  }
   return posts.filter(post => post.tags?.includes(topic)).length
 }
 
 export function getPopularPosts(posts: Post[], limit = 5): Post[] {
-  return [...posts]
-    .filter(p => p.featured && getPopularityScore(p) > 0)
-    .sort((a, b) => getPopularityScore(b) - getPopularityScore(a))
-    .slice(0, limit)
+  return sortLinkedInMirrorPosts(posts).slice(0, limit)
 }
 
 export function formatLinkedInStats(post: Post): string | null {
