@@ -48,6 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <nav className="ml-auto text-sm font-medium space-x-6">
                   <Link href="/">Home</Link>
                   <Link href="/about">About</Link>
+                  <Link href="/cv">CV</Link>
                   <Link
                     href="https://www.linkedin.com/in/denys-kirev/"
                     target="_blank"

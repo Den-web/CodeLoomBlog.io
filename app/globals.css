@@ -1,3 +1,30 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@media print {
+  header,
+  .cv-no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .cv-document {
+    max-width: 100% !important;
+  }
+
+  .cv-document a {
+    color: #18181b !important;
+    text-decoration: underline;
+  }
+
+  .cv-document a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 8pt;
+    word-break: break-all;
+  }
+}

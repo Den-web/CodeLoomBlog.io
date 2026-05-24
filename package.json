@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "cv:pdf": "node scripts/build-cv-pdf.mjs",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
@@ -30,9 +31,13 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "marked": "^15.0.6",
+    "puppeteer-core": "^23.11.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
